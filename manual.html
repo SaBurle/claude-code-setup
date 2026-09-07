@@ -273,6 +273,50 @@
     }
     main { padding: 32px 20px 64px 20px; }
   }
+
+  .back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 200;
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    filter: brightness(0.9);
+  }
+
+  @media (max-width: 860px) {
+    .back-to-top {
+      right: 16px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+      font-size: 22px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -537,6 +581,8 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
   <footer>Manual de Comandos — gerado a partir de MANUAL-COMANDOS.md</footer>
 </main>
 
+<button id="backToTop" class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
 <script>
   // Copy-to-clipboard for code blocks
   document.querySelectorAll('.copy-btn').forEach(function (btn) {
@@ -587,6 +633,20 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
 
   window.addEventListener('scroll', onScroll);
   onScroll();
+
+  // Back-to-top floating button
+  var backToTop = document.getElementById('backToTop');
+
+  function toggleBackToTop() {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  }
+
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+
+  backToTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 </script>
 
 </body>
