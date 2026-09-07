@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Comandos — PowerShell + Claude Code</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --bg-panel: #ffffff;
+    --border: #e5e3df;
+    --text: #2b2926;
+    --text-muted: #6b6862;
+    --accent: #8a5a3b;
+    --accent-soft: #f2e9e0;
+    --code-bg: #292522;
+    --code-text: #f2ede6;
+    --code-border: #3d3833;
+    --warn-bg: #fdf3ee;
+    --warn-border: #e8c4a8;
+    --table-head: #f4f1ec;
+    --link: #8a5a3b;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  nav.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    padding: 28px 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  nav.sidebar h1 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin: 0 0 4px 0;
+  }
+
+  nav.sidebar .subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0 0 24px 0;
+  }
+
+  nav.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav.sidebar li { margin-bottom: 2px; }
+
+  nav.sidebar a {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 6px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+
+  nav.sidebar a:hover {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  nav.sidebar a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  nav.sidebar .sub-link {
+    padding-left: 22px;
+    font-size: 12.5px;
+  }
+
+  /* Main content */
+  main {
+    flex: 1;
+    max-width: 800px;
+    padding: 48px 56px 96px 56px;
+  }
+
+  main h1.doc-title {
+    font-size: 30px;
+    margin: 0 0 8px 0;
+    font-weight: 750;
+  }
+
+  main .doc-intro {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin: 0 0 40px 0;
+    max-width: 640px;
+  }
+
+  section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  section h2 {
+    font-size: 21px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin: 0 0 20px 0;
+    scroll-margin-top: 24px;
+  }
+
+  section h3 {
+    font-size: 16px;
+    font-weight: 650;
+    margin: 28px 0 8px 0;
+    color: var(--text);
+    scroll-margin-top: 24px;
+  }
+
+  p { margin: 0 0 14px 0; }
+
+  strong { font-weight: 650; }
+
+  code.inline {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.88em;
+  }
+
+  /* Code blocks */
+  .code-block {
+    position: relative;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    margin: 12px 0 18px 0;
+    overflow: hidden;
+  }
+
+  .code-block pre {
+    margin: 0;
+    padding: 14px 50px 14px 16px;
+    overflow-x: auto;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13.5px;
+    color: var(--code-text);
+    line-height: 1.55;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--code-text);
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+  }
+
+  .copy-btn:hover {
+    background: rgba(255,255,255,0.18);
+  }
+
+  .copy-btn.copied {
+    background: #4a7a5c;
+    border-color: #4a7a5c;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px 0;
+    font-size: 14px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  thead tr { background: var(--table-head); }
+
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 650;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr:hover { background: #fbf9f6; }
+
+  td code, th code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+
+  /* Warning callout */
+  .warn {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 4px 0 18px 0;
+    font-size: 14px;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  footer {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 860px) {
+    body { flex-direction: column; }
+    nav.sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    main { padding: 32px 20px 64px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <h1>Manual de Comandos</h1>
+  <p class="subtitle">PowerShell + Claude Code</p>
+  <ul>
+    <li><a href="#navegacao" class="nav-link">1. Navegação de pastas</a></li>
+    <li><a href="#interagir-claude" class="nav-link">2. Interagir com o Claude Code</a></li>
+    <li><a href="#comandos-nativos" class="nav-link">3. Comandos slash nativos</a></li>
+    <li><a href="#comandos-personalizados" class="nav-link">4. Comandos personalizados</a></li>
+    <li><a href="#git-github" class="nav-link">5. Git e GitHub</a></li>
+    <li><a href="#resumo" class="nav-link">Resumo rápido</a></li>
+  </ul>
+</nav>
+
+<main>
+  <h1 class="doc-title">Manual de Comandos — PowerShell + Claude Code</h1>
+  <p class="doc-intro">Guia de referência rápida para quem está começando a usar o terminal (PowerShell) e o Claude Code. Guarde este arquivo e volte a ele sempre que esquecer um comando.</p>
+
+  <section id="navegacao">
+    <h2>1. Navegação básica de pastas no PowerShell</h2>
+    <p>O terminal fica sempre "dentro" de uma pasta. Os comandos abaixo servem para andar entre pastas e ver o que existe dentro delas.</p>
+
+    <h3>Ver em qual pasta eu estou</h3>
+    <div class="code-block"><pre><code>pwd</code></pre><button class="copy-btn" data-code="pwd">Copiar</button></div>
+    <p>Mostra o caminho completo da pasta atual (ex: <code class="inline">C:\Users\Samara\Claude</code>).</p>
+
+    <h3>Listar arquivos e pastas</h3>
+    <div class="code-block"><pre><code>ls</code></pre><button class="copy-btn" data-code="ls">Copiar</button></div>
+    <p>ou, se preferir o nome mais tradicional do Windows:</p>
+    <div class="code-block"><pre><code>dir</code></pre><button class="copy-btn" data-code="dir">Copiar</button></div>
+    <p>Os dois fazem a mesma coisa: mostram o que tem dentro da pasta atual.</p>
+
+    <h3>Entrar em uma pasta</h3>
+    <div class="code-block"><pre><code>cd nome-da-pasta</code></pre><button class="copy-btn" data-code="cd nome-da-pasta">Copiar</button></div>
+    <p>Exemplo:</p>
+    <div class="code-block"><pre><code>cd Claude</code></pre><button class="copy-btn" data-code="cd Claude">Copiar</button></div>
+    <p>Se o nome da pasta tiver espaço, use aspas:</p>
+    <div class="code-block"><pre><code>cd "Minha Pasta"</code></pre><button class="copy-btn" data-code='cd "Minha Pasta"'>Copiar</button></div>
+
+    <h3>Voltar uma pasta (subir um nível)</h3>
+    <div class="code-block"><pre><code>cd ..</code></pre><button class="copy-btn" data-code="cd ..">Copiar</button></div>
+
+    <h3>Voltar direto para a pasta do usuário</h3>
+    <div class="code-block"><pre><code>cd ~</code></pre><button class="copy-btn" data-code="cd ~">Copiar</button></div>
+
+    <h3>Criar uma pasta nova</h3>
+    <div class="code-block"><pre><code>mkdir nome-da-pasta</code></pre><button class="copy-btn" data-code="mkdir nome-da-pasta">Copiar</button></div>
+    <p>Exemplo:</p>
+    <div class="code-block"><pre><code>mkdir projeto-novo</code></pre><button class="copy-btn" data-code="mkdir projeto-novo">Copiar</button></div>
+
+    <h3>Deletar uma pasta ⚠️</h3>
+    <div class="code-block"><pre><code>Remove-Item nome-da-pasta -Recurse</code></pre><button class="copy-btn" data-code="Remove-Item nome-da-pasta -Recurse">Copiar</button></div>
+    <div class="warn"><strong>Cuidado:</strong> isso apaga a pasta e tudo o que está dentro dela, sem pedir confirmação e sem ir para a lixeira. Não tem "desfazer". Confira bem o nome da pasta antes de apertar Enter.</div>
+    <p>Se quiser que o PowerShell pergunte antes de apagar cada item, use:</p>
+    <div class="code-block"><pre><code>Remove-Item nome-da-pasta -Recurse -Confirm</code></pre><button class="copy-btn" data-code="Remove-Item nome-da-pasta -Recurse -Confirm">Copiar</button></div>
+
+    <h3>Deletar um arquivo</h3>
+    <div class="code-block"><pre><code>Remove-Item nome-do-arquivo.txt</code></pre><button class="copy-btn" data-code="Remove-Item nome-do-arquivo.txt">Copiar</button></div>
+    <div class="warn">Mesmo aviso: não vai para a lixeira, é definitivo.</div>
+  </section>
+
+  <section id="interagir-claude">
+    <h2>2. Como interagir com o Claude Code</h2>
+
+    <h3>A diferença entre "pedido livre" e "comando slash"</h3>
+    <p><strong>Pedido em linguagem natural</strong>: você escreve o que quer, como se estivesse conversando ou mandando mensagem para uma pessoa. Exemplo: <code class="inline">crie um arquivo README explicando este projeto</code>. O Claude interpreta o pedido e decide o que fazer.</p>
+    <p><strong>Comando slash</strong> (<code class="inline">/algumacoisa</code>): é um atalho fixo, que sempre faz a mesma ação predefinida. Exemplo: <code class="inline">/clear</code> sempre limpa a conversa, não importa o que você escreva depois.</p>
+    <p>Resumindo: se você quer que o Claude <em>pense</em> e resolva algo, escreva normalmente. Se você quer executar uma ação específica e conhecida, use um comando <code class="inline">/slash</code>.</p>
+
+    <h3>Onde digitar cada coisa</h3>
+    <p>Existe um único campo de texto na tela do Claude Code — é ali que você digita <strong>tanto</strong> pedidos livres <strong>quanto</strong> comandos slash. A diferença é só o <code class="inline">/</code> no começo:</p>
+    <div class="code-block"><pre><code>Preciso de uma função que valide CPF</code></pre><button class="copy-btn" data-code="Preciso de uma função que valide CPF">Copiar</button></div>
+    <div class="code-block"><pre><code>/clear</code></pre><button class="copy-btn" data-code="/clear">Copiar</button></div>
+
+    <h3>Como abrir uma sessão do Claude Code</h3>
+    <p>No terminal (PowerShell), dentro da pasta do seu projeto, digite:</p>
+    <div class="code-block"><pre><code>claude</code></pre><button class="copy-btn" data-code="claude">Copiar</button></div>
+    <p>Isso abre a sessão interativa do Claude Code naquela pasta.</p>
+
+    <h3>Como fechar/sair de uma sessão</h3>
+    <p>Aperte:</p>
+    <div class="code-block"><pre><code>Ctrl+C</code></pre><button class="copy-btn" data-code="Ctrl+C">Copiar</button></div>
+    <p>duas vezes seguidas. A primeira vez avisa que você está saindo; a segunda confirma e fecha.</p>
+
+    <h3>Como interromper uma ação em andamento</h3>
+    <p>Se o Claude estiver executando algo e você quiser pará-lo (sem fechar a sessão inteira), aperte:</p>
+    <div class="code-block"><pre><code>Esc</code></pre><button class="copy-btn" data-code="Esc">Copiar</button></div>
+    <p>Isso cancela a ação atual, mas mantém a conversa aberta para você continuar dando instruções.</p>
+  </section>
+
+  <section id="comandos-nativos">
+    <h2>3. Comandos slash nativos essenciais</h2>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>/init</code></td><td>Analisa o projeto na pasta atual e cria um arquivo <code class="inline">CLAUDE.md</code> com informações sobre o código, para o Claude "lembrar" do contexto em sessões futuras.</td></tr>
+        <tr><td><code>/clear</code></td><td>Apaga o histórico da conversa atual e começa do zero (útil quando a conversa ficou longa ou mudou de assunto).</td></tr>
+        <tr><td><code>/compact</code></td><td>Resume a conversa atual para economizar espaço, mas mantém o contexto importante (diferente do <code class="inline">/clear</code>, que apaga tudo).</td></tr>
+        <tr><td><code>/status</code></td><td>Mostra informações sobre a sessão atual: modelo em uso, configurações, etc.</td></tr>
+        <tr><td><code>/help</code></td><td>Mostra ajuda geral sobre como usar o Claude Code.</td></tr>
+        <tr><td><code>/login</code></td><td>Faz login (ou troca de conta) na sua conta Claude/Anthropic.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="comandos-personalizados">
+    <h2>4. Como usar comandos personalizados (slash commands que você mesma cria)</h2>
+    <p>Você pode criar seus próprios comandos <code class="inline">/slash</code>, que funcionam como "atalhos" para pedidos que você usa com frequência.</p>
+    <p><strong>Como funciona:</strong> cada comando personalizado é um arquivo de texto guardado em uma pasta específica de comandos do Claude Code. Quando você digita <code class="inline">/nome-do-comando</code>, o Claude lê esse arquivo e segue as instruções escritas nele.</p>
+    <p><strong>Exemplo prático:</strong> este próprio manual foi gerado a partir de um comando personalizado chamado <code class="inline">/manual-comandos</code>. Ao digitar:</p>
+    <div class="code-block"><pre><code>/manual-comandos</code></pre><button class="copy-btn" data-code="/manual-comandos">Copiar</button></div>
+    <p>o Claude leu um arquivo com instruções detalhadas (o que incluir, como organizar, para quem escrever) e gerou este documento automaticamente — sem eu precisar reescrever o pedido inteiro toda vez.</p>
+    <p><strong>Vantagem:</strong> em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita <code class="inline">/nome-do-comando</code> sempre que quiser repetir aquela tarefa.</p>
+  </section>
+
+  <section id="git-github">
+    <h2>5. Conexão com Git e GitHub</h2>
+
+    <h3>Como pedir para o Claude Code inicializar um repositório Git</h3>
+    <p>Basta pedir em linguagem natural, dentro da sessão do Claude Code:</p>
+    <div class="code-block"><pre><code>inicialize um repositório Git nesta pasta</code></pre><button class="copy-btn" data-code="inicialize um repositório Git nesta pasta">Copiar</button></div>
+    <p>O Claude vai rodar o comando <code class="inline">git init</code> para você.</p>
+
+    <h3>Como verificar se uma pasta já é um repositório Git</h3>
+    <p>Peça:</p>
+    <div class="code-block"><pre><code>verifique se esta pasta já é um repositório Git</code></pre><button class="copy-btn" data-code="verifique se esta pasta já é um repositório Git">Copiar</button></div>
+    <p>Ou, se quiser fazer você mesma no terminal:</p>
+    <div class="code-block"><pre><code>git status</code></pre><button class="copy-btn" data-code="git status">Copiar</button></div>
+    <p>Se aparecer uma mensagem de erro dizendo que não é um repositório, significa que ainda não foi inicializado.</p>
+
+    <h3>Como autenticar no GitHub</h3>
+    <p>No terminal, rode:</p>
+    <div class="code-block"><pre><code>gh auth login</code></pre><button class="copy-btn" data-code="gh auth login">Copiar</button></div>
+    <p>Isso abre um passo a passo (geralmente pelo navegador) para conectar sua conta do GitHub à ferramenta <code class="inline">gh</code> (GitHub CLI). Você só precisa fazer isso uma vez por computador.</p>
+
+    <h3>Como pedir para o Claude Code criar um repositório no GitHub e enviar o código (push)</h3>
+    <p>Depois de autenticado com <code class="inline">gh auth login</code>, peça em linguagem natural:</p>
+    <div class="code-block"><pre><code>crie um repositório no GitHub para este projeto e envie o código (push)</code></pre><button class="copy-btn" data-code="crie um repositório no GitHub para este projeto e envie o código (push)">Copiar</button></div>
+    <p>O Claude vai usar os comandos do Git e do <code class="inline">gh</code> para:</p>
+    <p>1. Criar o repositório remoto no GitHub.<br>
+    2. Conectar a pasta local a esse repositório.<br>
+    3. Enviar (<code class="inline">git push</code>) os arquivos.</p>
+    <div class="warn"><strong>Dica de segurança:</strong> ações como criar repositórios públicos ou dar push costumam pedir sua confirmação antes de executar — é normal e esperado que o Claude pergunte antes de fazer algo que afeta o GitHub de verdade.</div>
+  </section>
+
+  <section id="resumo">
+    <h2>Resumo rápido (cola de bolso)</h2>
+    <table>
+      <thead>
+        <tr><th>Quero...</th><th>Comando</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ver onde estou</td><td><code>pwd</code></td></tr>
+        <tr><td>Ver arquivos da pasta</td><td><code>ls</code> ou <code>dir</code></td></tr>
+        <tr><td>Entrar numa pasta</td><td><code>cd nome-da-pasta</code></td></tr>
+        <tr><td>Voltar uma pasta</td><td><code>cd ..</code></td></tr>
+        <tr><td>Criar pasta</td><td><code>mkdir nome</code></td></tr>
+        <tr><td>Apagar pasta (⚠️ cuidado)</td><td><code>Remove-Item nome -Recurse</code></td></tr>
+        <tr><td>Apagar arquivo (⚠️ cuidado)</td><td><code>Remove-Item arquivo</code></td></tr>
+        <tr><td>Abrir o Claude Code</td><td><code>claude</code></td></tr>
+        <tr><td>Fechar o Claude Code</td><td><code>Ctrl+C</code> (duas vezes)</td></tr>
+        <tr><td>Parar uma ação em andamento</td><td><code>Esc</code></td></tr>
+        <tr><td>Limpar a conversa</td><td><code>/clear</code></td></tr>
+        <tr><td>Resumir a conversa</td><td><code>/compact</code></td></tr>
+        <tr><td>Documentar o projeto</td><td><code>/init</code></td></tr>
+        <tr><td>Ver status da sessão</td><td><code>/status</code></td></tr>
+        <tr><td>Pedir ajuda</td><td><code>/help</code></td></tr>
+        <tr><td>Fazer login</td><td><code>/login</code></td></tr>
+        <tr><td>Login no GitHub</td><td><code>gh auth login</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>Manual de Comandos — gerado a partir de MANUAL-COMANDOS.md</footer>
+</main>
+
+<script>
+  // Copy-to-clipboard for code blocks
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-code');
+      var done = function () {
+        var original = btn.textContent;
+        btn.textContent = 'Copiado!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original === 'Copiado!' ? 'Copiar' : original;
+          btn.classList.remove('copied');
+        }, 1500);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+      function fallbackCopy() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        done();
+      }
+    });
+  });
+
+  // Highlight active section in sidebar while scrolling
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+
+  function onScroll() {
+    var scrollPos = window.scrollY + 100;
+    var current = sections[0];
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= scrollPos) current = sec;
+    });
+    navLinks.forEach(function (link) {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current.id);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+
+</body>
+</html>
