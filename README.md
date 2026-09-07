@@ -4,7 +4,7 @@ Guia de referência pessoal com a instalação, configuração e fluxos de traba
 
 Repositório: https://github.com/SaBurle/claude-code-setup
 
-📖 [Manual de Comandos](MANUAL-COMANDOS.md) — guia de referência para quem está começando com terminal/PowerShell e Claude Code.
+📖 [Manual de Comandos](MANUAL-COMANDOS.md) ([versão HTML navegável](manual.html)) — guia de referência para quem está começando com terminal/PowerShell e Claude Code.
 
 ## 1. Instalação
 
