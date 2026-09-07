@@ -195,6 +195,23 @@ O Claude vai usar os comandos do Git e do `gh` para:
 
 ---
 
+## 6. Meus Caminhos
+
+### Organização de pastas
+
+Toda documentação/manual pessoal fica direto na pasta `Claude`.
+Todo projeto novo (com código e seu próprio git) deve ser criado dentro de uma subpasta `Projetos`.
+
+### Exemplo para criar um projeto novo
+
+```powershell
+mkdir C:\Users\Samara\Claude\Projetos\nome-do-projeto
+cd C:\Users\Samara\Claude\Projetos\nome-do-projeto
+claude
+```
+
+---
+
 ## Resumo rápido (cola de bolso)
 
 | Quero... | Comando |
