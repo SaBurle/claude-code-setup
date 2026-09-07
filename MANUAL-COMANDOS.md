@@ -148,27 +148,89 @@ o Claude leu um arquivo com instruções detalhadas (o que incluir, como organiz
 
 **Vantagem:** em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita `/nome-do-comando` sempre que quiser repetir aquela tarefa.
 
-### Comando coringa: /add-prompt
+### Como abrir e editar um comando
 
-Para pedidos pontuais que não vão se repetir (ou seja, você não quer criar um comando novo para cada um), existe o comando `/add-prompt`.
+Todo comando personalizado é um arquivo `.md` guardado na pasta de comandos. Para criar ou editar qualquer um deles, abra o arquivo correspondente no Notepad:
 
-#### Como funciona
+```powershell
+notepad $HOME\.claude\commands\NOME-DO-COMANDO.md
+```
 
-1. Abra o arquivo do comando:
-   ```powershell
-   notepad $HOME\.claude\commands\add-prompt.md
-   ```
-2. Apague o conteúdo anterior e cole o pedido novo do momento.
-3. Salve e feche o Notepad.
-4. Dentro de uma sessão do Claude Code, digite:
-   ```
-   /add-prompt
-   ```
+Troque `NOME-DO-COMANDO` pelo nome do comando desejado. Por exemplo, para editar o coringa `/add-prompt`:
 
-#### Diferença importante
+```powershell
+notepad $HOME\.claude\commands\add-prompt.md
+```
 
-- **Comandos fixos** (ex: `/eng-prompt`, `/consultor-financeiro`) — usados várias vezes, o conteúdo não muda.
-- **`/add-prompt`** — descartável, você reescreve o conteúdo a cada pedido novo.
+Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite `/nome-do-comando` em qualquer sessão do Claude Code.
+
+### Comandos disponíveis
+
+#### `/add-prompt`
+```
+/add-prompt
+```
+Comando coringa para pedidos pontuais que não vão se repetir.
+
+#### `/manual-comandos`
+```
+/manual-comandos
+```
+Gera o manual de referência em Markdown.
+
+#### `/manual-html`
+```
+/manual-html
+```
+Converte o manual em página HTML navegável.
+
+#### `/doc-setup`
+```
+/doc-setup
+```
+Gera o README com o setup pessoal do Claude Code.
+
+#### `/todo-app`
+```
+/todo-app
+```
+Cria o projeto de teste (lista de tarefas).
+
+#### `/eng-prompt`
+```
+/eng-prompt
+```
+Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar).
+
+#### `/consultor-financeiro`
+```
+/consultor-financeiro
+```
+Ativa revisão de lógica financeira/contábil.
+
+#### `/advogado-lgpd`
+```
+/advogado-lgpd
+```
+Ativa revisão de conformidade LGPD/proteção de dados.
+
+#### `/marketing`
+```
+/marketing
+```
+Ativa apoio de copywriting e marketing.
+
+#### `/revisor-qa`
+```
+/revisor-qa
+```
+Ativa revisão crítica de código como QA.
+
+#### `/recrutador-tecnico`
+```
+/recrutador-tecnico
+```
+Ativa avaliação honesta de currículo/portfólio como recrutador técnico.
 
 ---
 

@@ -140,14 +140,6 @@
     scroll-margin-top: 24px;
   }
 
-  section h4 {
-    font-size: 14px;
-    font-weight: 650;
-    margin: 20px 0 6px 0;
-    color: var(--text-muted);
-    scroll-margin-top: 24px;
-  }
-
   p { margin: 0 0 14px 0; }
 
   strong { font-weight: 650; }
@@ -401,20 +393,47 @@
     <p>o Claude leu um arquivo com instruções detalhadas (o que incluir, como organizar, para quem escrever) e gerou este documento automaticamente — sem eu precisar reescrever o pedido inteiro toda vez.</p>
     <p><strong>Vantagem:</strong> em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita <code class="inline">/nome-do-comando</code> sempre que quiser repetir aquela tarefa.</p>
 
-    <h3>Comando coringa: /add-prompt</h3>
-    <p>Para pedidos pontuais que não vão se repetir (ou seja, você não quer criar um comando novo para cada um), existe o comando <code class="inline">/add-prompt</code>.</p>
-
-    <h4>Como funciona</h4>
-    <p>1. Abra o arquivo do comando:</p>
+    <h3>Como abrir e editar um comando</h3>
+    <p>Todo comando personalizado é um arquivo <code class="inline">.md</code> guardado na pasta de comandos. Para criar ou editar qualquer um deles, abra o arquivo correspondente no Notepad:</p>
+    <div class="code-block"><pre><code>notepad $HOME\.claude\commands\NOME-DO-COMANDO.md</code></pre><button class="copy-btn" data-code="notepad $HOME\.claude\commands\NOME-DO-COMANDO.md">Copiar</button></div>
+    <p>Troque <code class="inline">NOME-DO-COMANDO</code> pelo nome do comando desejado. Por exemplo, para editar o coringa <code class="inline">/add-prompt</code>:</p>
     <div class="code-block"><pre><code>notepad $HOME\.claude\commands\add-prompt.md</code></pre><button class="copy-btn" data-code="notepad $HOME\.claude\commands\add-prompt.md">Copiar</button></div>
-    <p>2. Apague o conteúdo anterior e cole o pedido novo do momento.</p>
-    <p>3. Salve e feche o Notepad.</p>
-    <p>4. Dentro de uma sessão do Claude Code, digite:</p>
-    <div class="code-block"><pre><code>/add-prompt</code></pre><button class="copy-btn" data-code="/add-prompt">Copiar</button></div>
+    <p>Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite <code class="inline">/nome-do-comando</code> em qualquer sessão do Claude Code.</p>
 
-    <h4>Diferença importante</h4>
-    <p><strong>Comandos fixos</strong> (ex: <code class="inline">/eng-prompt</code>, <code class="inline">/consultor-financeiro</code>) — usados várias vezes, o conteúdo não muda.</p>
-    <p><strong>/add-prompt</strong> — descartável, você reescreve o conteúdo a cada pedido novo.</p>
+    <h3>Comandos disponíveis</h3>
+
+    <div class="code-block"><pre><code>/add-prompt</code></pre><button class="copy-btn" data-code="/add-prompt">Copiar</button></div>
+    <p>Comando coringa para pedidos pontuais que não vão se repetir.</p>
+
+    <div class="code-block"><pre><code>/manual-comandos</code></pre><button class="copy-btn" data-code="/manual-comandos">Copiar</button></div>
+    <p>Gera o manual de referência em Markdown.</p>
+
+    <div class="code-block"><pre><code>/manual-html</code></pre><button class="copy-btn" data-code="/manual-html">Copiar</button></div>
+    <p>Converte o manual em página HTML navegável.</p>
+
+    <div class="code-block"><pre><code>/doc-setup</code></pre><button class="copy-btn" data-code="/doc-setup">Copiar</button></div>
+    <p>Gera o README com o setup pessoal do Claude Code.</p>
+
+    <div class="code-block"><pre><code>/todo-app</code></pre><button class="copy-btn" data-code="/todo-app">Copiar</button></div>
+    <p>Cria o projeto de teste (lista de tarefas).</p>
+
+    <div class="code-block"><pre><code>/eng-prompt</code></pre><button class="copy-btn" data-code="/eng-prompt">Copiar</button></div>
+    <p>Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar).</p>
+
+    <div class="code-block"><pre><code>/consultor-financeiro</code></pre><button class="copy-btn" data-code="/consultor-financeiro">Copiar</button></div>
+    <p>Ativa revisão de lógica financeira/contábil.</p>
+
+    <div class="code-block"><pre><code>/advogado-lgpd</code></pre><button class="copy-btn" data-code="/advogado-lgpd">Copiar</button></div>
+    <p>Ativa revisão de conformidade LGPD/proteção de dados.</p>
+
+    <div class="code-block"><pre><code>/marketing</code></pre><button class="copy-btn" data-code="/marketing">Copiar</button></div>
+    <p>Ativa apoio de copywriting e marketing.</p>
+
+    <div class="code-block"><pre><code>/revisor-qa</code></pre><button class="copy-btn" data-code="/revisor-qa">Copiar</button></div>
+    <p>Ativa revisão crítica de código como QA.</p>
+
+    <div class="code-block"><pre><code>/recrutador-tecnico</code></pre><button class="copy-btn" data-code="/recrutador-tecnico">Copiar</button></div>
+    <p>Ativa avaliação honesta de currículo/portfólio como recrutador técnico.</p>
   </section>
 
   <section id="git-github">
