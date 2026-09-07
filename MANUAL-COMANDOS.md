@@ -148,6 +148,28 @@ o Claude leu um arquivo com instruções detalhadas (o que incluir, como organiz
 
 **Vantagem:** em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita `/nome-do-comando` sempre que quiser repetir aquela tarefa.
 
+### Comando coringa: /add-prompt
+
+Para pedidos pontuais que não vão se repetir (ou seja, você não quer criar um comando novo para cada um), existe o comando `/add-prompt`.
+
+#### Como funciona
+
+1. Abra o arquivo do comando:
+   ```powershell
+   notepad $HOME\.claude\commands\add-prompt.md
+   ```
+2. Apague o conteúdo anterior e cole o pedido novo do momento.
+3. Salve e feche o Notepad.
+4. Dentro de uma sessão do Claude Code, digite:
+   ```
+   /add-prompt
+   ```
+
+#### Diferença importante
+
+- **Comandos fixos** (ex: `/eng-prompt`, `/consultor-financeiro`) — usados várias vezes, o conteúdo não muda.
+- **`/add-prompt`** — descartável, você reescreve o conteúdo a cada pedido novo.
+
 ---
 
 ## 5. Conexão com Git e GitHub
@@ -207,6 +229,28 @@ Todo projeto novo (com código e seu próprio git) deve ser criado dentro de uma
 ```powershell
 mkdir C:\Users\Samara\Claude\Projetos\nome-do-projeto
 cd C:\Users\Samara\Claude\Projetos\nome-do-projeto
+claude
+```
+
+### Se quiser usar num projeto que já existe
+
+```powershell
+cd C:\Users\Samara\Claude\Projetos\teste-claude-code
+claude
+```
+
+### Se quiser usar na pasta de manuais
+
+```powershell
+cd C:\Users\Samara\Claude
+claude
+```
+
+### Se quiser testar uma persona em pasta nova
+
+```powershell
+mkdir C:\Users\Samara\Claude\Projetos\projeto-novo
+cd C:\Users\Samara\Claude\Projetos\projeto-novo
 claude
 ```
 

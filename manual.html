@@ -140,6 +140,14 @@
     scroll-margin-top: 24px;
   }
 
+  section h4 {
+    font-size: 14px;
+    font-weight: 650;
+    margin: 20px 0 6px 0;
+    color: var(--text-muted);
+    scroll-margin-top: 24px;
+  }
+
   p { margin: 0 0 14px 0; }
 
   strong { font-weight: 650; }
@@ -392,6 +400,21 @@
     <div class="code-block"><pre><code>/manual-comandos</code></pre><button class="copy-btn" data-code="/manual-comandos">Copiar</button></div>
     <p>o Claude leu um arquivo com instruções detalhadas (o que incluir, como organizar, para quem escrever) e gerou este documento automaticamente — sem eu precisar reescrever o pedido inteiro toda vez.</p>
     <p><strong>Vantagem:</strong> em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita <code class="inline">/nome-do-comando</code> sempre que quiser repetir aquela tarefa.</p>
+
+    <h3>Comando coringa: /add-prompt</h3>
+    <p>Para pedidos pontuais que não vão se repetir (ou seja, você não quer criar um comando novo para cada um), existe o comando <code class="inline">/add-prompt</code>.</p>
+
+    <h4>Como funciona</h4>
+    <p>1. Abra o arquivo do comando:</p>
+    <div class="code-block"><pre><code>notepad $HOME\.claude\commands\add-prompt.md</code></pre><button class="copy-btn" data-code="notepad $HOME\.claude\commands\add-prompt.md">Copiar</button></div>
+    <p>2. Apague o conteúdo anterior e cole o pedido novo do momento.</p>
+    <p>3. Salve e feche o Notepad.</p>
+    <p>4. Dentro de uma sessão do Claude Code, digite:</p>
+    <div class="code-block"><pre><code>/add-prompt</code></pre><button class="copy-btn" data-code="/add-prompt">Copiar</button></div>
+
+    <h4>Diferença importante</h4>
+    <p><strong>Comandos fixos</strong> (ex: <code class="inline">/eng-prompt</code>, <code class="inline">/consultor-financeiro</code>) — usados várias vezes, o conteúdo não muda.</p>
+    <p><strong>/add-prompt</strong> — descartável, você reescreve o conteúdo a cada pedido novo.</p>
   </section>
 
   <section id="git-github">
@@ -435,6 +458,19 @@
     <div class="code-block"><pre><code>mkdir C:\Users\Samara\Claude\Projetos\nome-do-projeto
 cd C:\Users\Samara\Claude\Projetos\nome-do-projeto
 claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Claude\Projetos\nome-do-projeto&#10;cd C:\Users\Samara\Claude\Projetos\nome-do-projeto&#10;claude">Copiar</button></div>
+
+    <h3>Se quiser usar num projeto que já existe</h3>
+    <div class="code-block"><pre><code>cd C:\Users\Samara\Claude\Projetos\teste-claude-code
+claude</code></pre><button class="copy-btn" data-code="cd C:\Users\Samara\Claude\Projetos\teste-claude-code&#10;claude">Copiar</button></div>
+
+    <h3>Se quiser usar na pasta de manuais</h3>
+    <div class="code-block"><pre><code>cd C:\Users\Samara\Claude
+claude</code></pre><button class="copy-btn" data-code="cd C:\Users\Samara\Claude&#10;claude">Copiar</button></div>
+
+    <h3>Se quiser testar uma persona em pasta nova</h3>
+    <div class="code-block"><pre><code>mkdir C:\Users\Samara\Claude\Projetos\projeto-novo
+cd C:\Users\Samara\Claude\Projetos\projeto-novo
+claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Claude\Projetos\projeto-novo&#10;cd C:\Users\Samara\Claude\Projetos\projeto-novo&#10;claude">Copiar</button></div>
   </section>
 
   <section id="resumo">
