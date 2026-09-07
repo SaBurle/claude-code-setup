@@ -119,6 +119,15 @@ Esc
 ```
 Isso cancela a ação atual, mas mantém a conversa aberta para você continuar dando instruções.
 
+### Atalhos de teclado essenciais
+
+| Atalho | O que faz |
+|---|---|
+| `Ctrl+C` (duas vezes) | Fecha/sai da sessão atual. |
+| `Esc` | Interrompe a ação em andamento, sem fechar a sessão. |
+| `Shift+Tab` | Alterna o modo de permissão da conversa (negar / aprovar automaticamente / aprovar a cada turno). |
+| `Ctrl+Tab` | Completa a frase sugerida no campo, para você enviar sem precisar redigitar. |
+
 ---
 
 ## 3. Comandos slash nativos essenciais
@@ -332,6 +341,7 @@ claude
 | Abrir o Claude Code | `claude` |
 | Fechar o Claude Code | `Ctrl+C` (duas vezes) |
 | Parar uma ação em andamento | `Esc` |
+| Completar a frase sugerida no campo | `Ctrl+Tab` |
 | Limpar a conversa | `/clear` |
 | Resumir a conversa | `/compact` |
 | Documentar o projeto | `/init` |
