@@ -2,6 +2,8 @@
 
 Guia de referência pessoal com a instalação, configuração e fluxos de trabalho que uso com o Claude Code no Windows.
 
+Repositório: https://github.com/SaBurle/claude-code-setup
+
 ## 1. Instalação
 
 Instalado via PowerShell, usando o comando de instalação nativa:
