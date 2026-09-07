@@ -162,7 +162,7 @@ Troque `NOME-DO-COMANDO` pelo nome do comando desejado. Por exemplo, para editar
 notepad $HOME\.claude\commands\add-prompt.md
 ```
 
-Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite `/nome-do-comando` em qualquer sessão do Claude Code.
+Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite `/add-prompt` em qualquer sessão do Claude Code.
 
 ### Comandos disponíveis
 
