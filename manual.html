@@ -98,6 +98,52 @@
     font-size: 12.5px;
   }
 
+  /* Retractable nav groups (master categories with subsections) — shared by sidebar and FAB dropdown */
+  .nav-group { margin-bottom: 2px; }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-row .nav-link {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nav-toggle {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    margin-left: 2px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 10px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.12s ease, color 0.12s ease;
+  }
+
+  .nav-toggle:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .nav-toggle.expanded {
+    transform: rotate(90deg);
+  }
+
+  .nav-sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
   /* Main content */
   main {
     flex: 1;
@@ -140,7 +186,26 @@
     scroll-margin-top: 24px;
   }
 
+  section section {
+    margin-bottom: 40px;
+  }
+
+  section h4 {
+    font-size: 14.5px;
+    font-weight: 650;
+    margin: 20px 0 6px 0;
+    color: var(--text);
+    scroll-margin-top: 24px;
+  }
+
   p { margin: 0 0 14px 0; }
+
+  main ul, main ol {
+    margin: 0 0 14px 0;
+    padding-left: 22px;
+  }
+
+  main li { margin-bottom: 4px; }
 
   strong { font-weight: 650; }
 
@@ -197,6 +262,45 @@
     border-color: #4a7a5c;
   }
 
+  /* Inline copy icon buttons (used inside table "Comando" cells) */
+  .copy-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-left: 6px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 5px;
+    vertical-align: middle;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+
+  .copy-icon-btn svg {
+    width: 13px;
+    height: 13px;
+    display: block;
+  }
+
+  .copy-icon-btn:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .copy-icon-btn.copied {
+    color: #4a7a5c;
+  }
+
+  /* Teste visual: comando com fundo escuro (seção 1) */
+  code.cmd-dark {
+    background: var(--code-bg);
+    color: var(--code-text);
+  }
+
   /* Tables */
   table {
     width: 100%;
@@ -209,13 +313,14 @@
     overflow: hidden;
   }
 
-  thead tr { background: var(--table-head); }
+  thead tr { background: var(--code-bg); }
 
   th {
     text-align: left;
     padding: 10px 14px;
     font-weight: 650;
-    border-bottom: 1px solid var(--border);
+    color: var(--code-text);
+    border-bottom: 1px solid var(--code-border);
   }
 
   td {
@@ -236,6 +341,26 @@
     border-radius: 4px;
     font-size: 0.9em;
     white-space: nowrap;
+  }
+
+  /* Resumo rápido: colunas proporcionais + quebra de linha para comandos longos */
+  #resumo table {
+    table-layout: fixed;
+  }
+
+  #resumo th:nth-child(1),
+  #resumo td:nth-child(1) {
+    width: 45%;
+  }
+
+  #resumo th:nth-child(2),
+  #resumo td:nth-child(2) {
+    width: 55%;
+  }
+
+  #resumo td code {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   /* Warning callout */
@@ -274,10 +399,14 @@
     main { padding: 32px 20px 64px 20px; }
   }
 
-  .back-to-top {
+  .fab-wrapper {
     position: fixed;
     right: 20px;
     bottom: 20px;
+    z-index: 200;
+  }
+
+  .fab-btn {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -295,27 +424,80 @@
     visibility: hidden;
     transform: translateY(12px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-    z-index: 200;
   }
 
-  .back-to-top.visible {
+  .fab-btn.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
 
-  .back-to-top:hover {
+  .fab-btn:hover {
     filter: brightness(0.9);
   }
 
+  .fab-dropdown {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    min-width: 230px;
+    max-width: min(280px, calc(100vw - 32px));
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    padding: 6px;
+    margin: 0;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  }
+
+  .fab-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .fab-dropdown li { margin: 0; }
+
+  .fab-dropdown a {
+    display: block;
+    padding: 9px 12px;
+    border-radius: 6px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.92rem;
+    line-height: 1.3;
+  }
+
+  .fab-dropdown a:hover {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .fab-dropdown .fab-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 4px;
+  }
+
+  .fab-dropdown .fab-top-link {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .fab-dropdown .sub-link {
+    padding-left: 24px;
+    font-size: 0.85rem;
+  }
+
   @media (max-width: 860px) {
-    .back-to-top {
-      right: 16px;
-      bottom: 16px;
-      width: 52px;
-      height: 52px;
-      font-size: 22px;
-    }
+    .fab-wrapper { right: 16px; bottom: 16px; }
+    .fab-btn { width: 52px; height: 52px; font-size: 22px; }
+    .fab-dropdown { bottom: 64px; }
   }
 </style>
 </head>
@@ -325,13 +507,47 @@
   <h1>Manual de Comandos</h1>
   <p class="subtitle">PowerShell + Claude Code</p>
   <ul>
-    <li><a href="#navegacao" class="nav-link">1. Navegação de pastas</a></li>
-    <li><a href="#interagir-claude" class="nav-link">2. Interagir com o Claude Code</a></li>
-    <li><a href="#comandos-nativos" class="nav-link">3. Comandos slash nativos</a></li>
-    <li><a href="#comandos-personalizados" class="nav-link">4. Comandos personalizados</a></li>
-    <li><a href="#git-github" class="nav-link">5. Git e GitHub</a></li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#powershell" class="nav-link">1. PowerShell</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de PowerShell">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#navegacao" class="nav-link sub-link">1.1 Navegação de pastas</a></li>
+        <li><a href="#interagir-claude" class="nav-link sub-link">1.2 Interagir com o Claude Code</a></li>
+      </ul>
+    </li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#claude-code" class="nav-link">2. Claude Code</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Claude Code">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#comandos-nativos" class="nav-link sub-link">2.1 Comandos slash nativos</a></li>
+        <li><a href="#comandos-personalizados" class="nav-link sub-link">2.2 Comandos personalizados</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-github" class="nav-link">3. Git e GitHub</a></li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#notepad" class="nav-link">4. Notepad</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Notepad">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#notepad-atalhos" class="nav-link sub-link">4.1 Atalhos e Comandos</a></li>
+      </ul>
+    </li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#email" class="nav-link">5. E-mail</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de E-mail">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#plus-addressing" class="nav-link sub-link">5.1 Plus Addressing</a></li>
+      </ul>
+    </li>
     <li><a href="#meus-caminhos" class="nav-link">6. Meus Caminhos</a></li>
-    <li><a href="#resumo" class="nav-link">Resumo rápido</a></li>
+    <li><a href="#resumo" class="nav-link">7. Resumo rápido</a></li>
   </ul>
 </nav>
 
@@ -339,110 +555,133 @@
   <h1 class="doc-title">Manual de Comandos — PowerShell + Claude Code</h1>
   <p class="doc-intro">Guia de referência rápida para quem está começando a usar o terminal (PowerShell) e o Claude Code. Guarde este arquivo e volte a ele sempre que esquecer um comando.</p>
 
-  <section id="navegacao">
-    <h2>1. Navegação básica de pastas no PowerShell</h2>
+  <section id="powershell">
+    <h2>1. PowerShell</h2>
+
+    <section id="navegacao">
+    <h3>1.1 Navegação de pastas</h3>
     <p>O terminal fica sempre "dentro" de uma pasta. Os comandos abaixo servem para andar entre pastas e ver o que existe dentro delas.</p>
 
-    <h3>Ver em qual pasta eu estou</h3>
-    <div class="code-block"><pre><code>pwd</code></pre><button class="copy-btn" data-code="pwd">Copiar</button></div>
-    <p>Mostra o caminho completo da pasta atual (ex: <code class="inline">C:\Users\Samara\Claude</code>).</p>
-
-    <h3>Listar arquivos e pastas</h3>
-    <div class="code-block"><pre><code>ls</code></pre><button class="copy-btn" data-code="ls">Copiar</button></div>
-    <p>ou, se preferir o nome mais tradicional do Windows:</p>
-    <div class="code-block"><pre><code>dir</code></pre><button class="copy-btn" data-code="dir">Copiar</button></div>
-    <p>Os dois fazem a mesma coisa: mostram o que tem dentro da pasta atual.</p>
-
-    <h3>Entrar em uma pasta</h3>
-    <div class="code-block"><pre><code>cd nome-da-pasta</code></pre><button class="copy-btn" data-code="cd nome-da-pasta">Copiar</button></div>
-    <p>Exemplo:</p>
-    <div class="code-block"><pre><code>cd Claude</code></pre><button class="copy-btn" data-code="cd Claude">Copiar</button></div>
-    <p>Se o nome da pasta tiver espaço, use aspas:</p>
-    <div class="code-block"><pre><code>cd "Minha Pasta"</code></pre><button class="copy-btn" data-code='cd "Minha Pasta"'>Copiar</button></div>
-
-    <h3>Voltar uma pasta (subir um nível)</h3>
-    <div class="code-block"><pre><code>cd ..</code></pre><button class="copy-btn" data-code="cd ..">Copiar</button></div>
-
-    <h3>Voltar direto para a pasta do usuário</h3>
-    <div class="code-block"><pre><code>cd ~</code></pre><button class="copy-btn" data-code="cd ~">Copiar</button></div>
-
-    <h3>Criar uma pasta nova</h3>
-    <div class="code-block"><pre><code>mkdir nome-da-pasta</code></pre><button class="copy-btn" data-code="mkdir nome-da-pasta">Copiar</button></div>
-    <p>Exemplo:</p>
-    <div class="code-block"><pre><code>mkdir projeto-novo</code></pre><button class="copy-btn" data-code="mkdir projeto-novo">Copiar</button></div>
-
-    <h3>Deletar uma pasta ⚠️</h3>
-    <div class="code-block"><pre><code>Remove-Item nome-da-pasta -Recurse</code></pre><button class="copy-btn" data-code="Remove-Item nome-da-pasta -Recurse">Copiar</button></div>
-    <div class="warn"><strong>Cuidado:</strong> isso apaga a pasta e tudo o que está dentro dela, sem pedir confirmação e sem ir para a lixeira. Não tem "desfazer". Confira bem o nome da pasta antes de apertar Enter.</div>
-    <p>Se quiser que o PowerShell pergunte antes de apagar cada item, use:</p>
-    <div class="code-block"><pre><code>Remove-Item nome-da-pasta -Recurse -Confirm</code></pre><button class="copy-btn" data-code="Remove-Item nome-da-pasta -Recurse -Confirm">Copiar</button></div>
-
-    <h3>Deletar um arquivo</h3>
-    <div class="code-block"><pre><code>Remove-Item nome-do-arquivo.txt</code></pre><button class="copy-btn" data-code="Remove-Item nome-do-arquivo.txt">Copiar</button></div>
-    <div class="warn">Mesmo aviso: não vai para a lixeira, é definitivo.</div>
-  </section>
-
-  <section id="interagir-claude">
-    <h2>2. Como interagir com o Claude Code</h2>
-
-    <h3>A diferença entre "pedido livre" e "comando slash"</h3>
-    <p><strong>Pedido em linguagem natural</strong>: você escreve o que quer, como se estivesse conversando ou mandando mensagem para uma pessoa. Exemplo: <code class="inline">crie um arquivo README explicando este projeto</code>. O Claude interpreta o pedido e decide o que fazer.</p>
-    <p><strong>Comando slash</strong> (<code class="inline">/algumacoisa</code>): é um atalho fixo, que sempre faz a mesma ação predefinida. Exemplo: <code class="inline">/clear</code> sempre limpa a conversa, não importa o que você escreva depois.</p>
-    <p>Resumindo: se você quer que o Claude <em>pense</em> e resolva algo, escreva normalmente. Se você quer executar uma ação específica e conhecida, use um comando <code class="inline">/slash</code>.</p>
-
-    <h3>Onde digitar cada coisa</h3>
-    <p>Existe um único campo de texto na tela do Claude Code — é ali que você digita <strong>tanto</strong> pedidos livres <strong>quanto</strong> comandos slash. A diferença é só o <code class="inline">/</code> no começo:</p>
-    <div class="code-block"><pre><code>Preciso de uma função que valide CPF</code></pre><button class="copy-btn" data-code="Preciso de uma função que valide CPF">Copiar</button></div>
-    <div class="code-block"><pre><code>/clear</code></pre><button class="copy-btn" data-code="/clear">Copiar</button></div>
-
-    <h3>Como abrir uma sessão do Claude Code</h3>
-    <p>No terminal (PowerShell), dentro da pasta do seu projeto, digite:</p>
-    <div class="code-block"><pre><code>claude</code></pre><button class="copy-btn" data-code="claude">Copiar</button></div>
-    <p>Isso abre a sessão interativa do Claude Code naquela pasta.</p>
-
-    <h3>Como fechar/sair de uma sessão</h3>
-    <p>Aperte:</p>
-    <div class="code-block"><pre><code>Ctrl+C</code></pre><button class="copy-btn" data-code="Ctrl+C">Copiar</button></div>
-    <p>duas vezes seguidas. A primeira vez avisa que você está saindo; a segunda confirma e fecha.</p>
-
-    <h3>Como interromper uma ação em andamento</h3>
-    <p>Se o Claude estiver executando algo e você quiser pará-lo (sem fechar a sessão inteira), aperte:</p>
-    <div class="code-block"><pre><code>Esc</code></pre><button class="copy-btn" data-code="Esc">Copiar</button></div>
-    <p>Isso cancela a ação atual, mas mantém a conversa aberta para você continuar dando instruções.</p>
-
-    <h3>Atalhos de teclado essenciais</h3>
-    <table>
-      <thead>
-        <tr><th>Atalho</th><th>O que faz</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>Ctrl+C</code> (duas vezes)</td><td>Fecha/sai da sessão atual.</td></tr>
-        <tr><td><code>Esc</code></td><td>Interrompe a ação em andamento, sem fechar a sessão.</td></tr>
-        <tr><td><code>Shift+Tab</code></td><td>Alterna o modo de permissão da conversa (negar / aprovar automaticamente / aprovar a cada turno).</td></tr>
-        <tr><td><code>Ctrl+Tab</code></td><td>Completa a frase sugerida no campo, para você enviar sem precisar redigitar.</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section id="comandos-nativos">
-    <h2>3. Comandos slash nativos essenciais</h2>
     <table>
       <thead>
         <tr><th>Comando</th><th>O que faz</th></tr>
       </thead>
       <tbody>
-        <tr><td><code>/init</code></td><td>Analisa o projeto na pasta atual e cria um arquivo <code class="inline">CLAUDE.md</code> com informações sobre o código, para o Claude "lembrar" do contexto em sessões futuras.</td></tr>
-        <tr><td><code>/clear</code></td><td>Apaga o histórico da conversa atual e começa do zero (útil quando a conversa ficou longa ou mudou de assunto).</td></tr>
-        <tr><td><code>/compact</code></td><td>Resume a conversa atual para economizar espaço, mas mantém o contexto importante (diferente do <code class="inline">/clear</code>, que apaga tudo).</td></tr>
-        <tr><td><code>/status</code></td><td>Mostra informações sobre a sessão atual: modelo em uso, configurações, etc.</td></tr>
-        <tr><td><code>/help</code></td><td>Mostra ajuda geral sobre como usar o Claude Code.</td></tr>
-        <tr><td><code>/login</code></td><td>Faz login (ou troca de conta) na sua conta Claude/Anthropic.</td></tr>
+        <tr>
+          <td><code class="cmd-dark">pwd</code><button class="copy-icon-btn" data-code="pwd" title="Copiar comando" aria-label="Copiar comando pwd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mostra o caminho completo da pasta atual (ex: <code class="inline">C:\Users\Samara\Claude</code>).</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">ls</code><button class="copy-icon-btn" data-code="ls" title="Copiar comando" aria-label="Copiar comando ls"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Lista arquivos e pastas da pasta atual.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">dir</code><button class="copy-icon-btn" data-code="dir" title="Copiar comando" aria-label="Copiar comando dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mesma coisa que <code class="inline">ls</code> — nome mais tradicional do Windows.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">cd nome-da-pasta</code><button class="copy-icon-btn" data-code="cd nome-da-pasta" title="Copiar comando" aria-label="Copiar comando cd nome-da-pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Entra na pasta indicada. Exemplo: <code class="inline">cd Claude</code>. Se o nome tiver espaço, use aspas: <code class="inline">cd "Minha Pasta"</code>.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">cd Claude\Projetos\teste-claude-code</code><button class="copy-icon-btn" data-code="cd Claude\Projetos\teste-claude-code" title="Copiar comando" aria-label="Copiar comando cd Claude\Projetos\teste-claude-code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Entra direto em várias subpastas em sequência (<code class="inline">Claude</code> → <code class="inline">Projetos</code> → <code class="inline">teste-claude-code</code>), em um único comando.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">cd ..</code><button class="copy-icon-btn" data-code="cd .." title="Copiar comando" aria-label="Copiar comando cd .."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Volta uma pasta (sobe um nível).</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">cd ~</code><button class="copy-icon-btn" data-code="cd ~" title="Copiar comando" aria-label="Copiar comando cd ~"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Volta direto para a pasta do usuário.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">mkdir nome-da-pasta</code><button class="copy-icon-btn" data-code="mkdir nome-da-pasta" title="Copiar comando" aria-label="Copiar comando mkdir nome-da-pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Cria uma pasta nova. Exemplo: <code class="inline">mkdir projeto-novo</code>.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Remove-Item nome-da-pasta -Recurse</code><button class="copy-icon-btn" data-code="Remove-Item nome-da-pasta -Recurse" title="Copiar comando" aria-label="Copiar comando Remove-Item nome-da-pasta -Recurse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>⚠️ Apaga a pasta e tudo o que está dentro dela, sem pedir confirmação e sem ir para a lixeira. Não tem "desfazer" — confira bem o nome antes de apertar Enter.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Remove-Item nome-da-pasta -Recurse -Confirm</code><button class="copy-icon-btn" data-code="Remove-Item nome-da-pasta -Recurse -Confirm" title="Copiar comando" aria-label="Copiar comando Remove-Item nome-da-pasta -Recurse -Confirm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mesma coisa, mas pede confirmação antes de apagar cada item.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Remove-Item nome-do-arquivo.txt</code><button class="copy-icon-btn" data-code="Remove-Item nome-do-arquivo.txt" title="Copiar comando" aria-label="Copiar comando Remove-Item nome-do-arquivo.txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Apaga um arquivo. Mesmo aviso: não vai para a lixeira, é definitivo.</td>
+        </tr>
       </tbody>
     </table>
+    </section>
+
+    <section id="interagir-claude">
+    <h3>1.2 Interagir com o Claude Code</h3>
+
+    <h4>A diferença entre "pedido livre" e "comando slash"</h4>
+    <p><strong>Pedido em linguagem natural</strong>: você escreve o que quer, como se estivesse conversando ou mandando mensagem para uma pessoa. Exemplo: <code class="inline">crie um arquivo README explicando este projeto</code>. O Claude interpreta o pedido e decide o que fazer.</p>
+    <p><strong>Comando slash</strong> (<code class="inline">/algumacoisa</code>): é um atalho fixo, que sempre faz a mesma ação predefinida. Exemplo: <code class="inline">/clear</code> sempre limpa a conversa, não importa o que você escreva depois.</p>
+    <p>Resumindo: se você quer que o Claude <em>pense</em> e resolva algo, escreva normalmente. Se você quer executar uma ação específica e conhecida, use um comando <code class="inline">/slash</code>.</p>
+
+    <h4>Onde digitar cada coisa</h4>
+    <p>Existe um único campo de texto na tela do Claude Code — é ali que você digita <strong>tanto</strong> pedidos livres <strong>quanto</strong> comandos slash. A diferença é só o <code class="inline">/</code> no começo:</p>
+    <div class="code-block"><pre><code>Preciso de uma função que valide CPF</code></pre><button class="copy-btn" data-code="Preciso de uma função que valide CPF">Copiar</button></div>
+    <div class="code-block"><pre><code>/clear</code></pre><button class="copy-btn" data-code="/clear">Copiar</button></div>
+
+    <h4>Comandos e atalhos essenciais</h4>
+    <table>
+      <thead>
+        <tr><th>Comando / Atalho</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">claude</code><button class="copy-icon-btn" data-code="claude" title="Copiar comando" aria-label="Copiar comando claude"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>No terminal, dentro da pasta do seu projeto: abre a sessão interativa do Claude Code naquela pasta.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Ctrl+C</code><button class="copy-icon-btn" data-code="Ctrl+C" title="Copiar atalho" aria-label="Copiar atalho Ctrl+C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button> (duas vezes)</td>
+          <td>Fecha/sai da sessão atual — a primeira vez avisa que você está saindo, a segunda confirma e fecha.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Esc</code><button class="copy-icon-btn" data-code="Esc" title="Copiar atalho" aria-label="Copiar atalho Esc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Se o Claude estiver executando algo, interrompe a ação em andamento sem fechar a sessão inteira.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Shift+Tab</code><button class="copy-icon-btn" data-code="Shift+Tab" title="Copiar atalho" aria-label="Copiar atalho Shift+Tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Alterna o modo de permissão da conversa (negar / aprovar automaticamente / aprovar a cada turno).</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Ctrl+Tab</code><button class="copy-icon-btn" data-code="Ctrl+Tab" title="Copiar atalho" aria-label="Copiar atalho Ctrl+Tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Completa a frase sugerida no campo, para você enviar sem precisar redigitar.</td>
+        </tr>
+      </tbody>
+    </table>
+    </section>
   </section>
 
-  <section id="comandos-personalizados">
-    <h2>4. Como usar comandos personalizados (slash commands que você mesma cria)</h2>
+  <section id="claude-code">
+    <h2>2. Claude Code</h2>
+
+    <section id="comandos-nativos">
+    <h3>2.1 Comandos slash nativos</h3>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="cmd-dark">/init</code><button class="copy-icon-btn" data-code="/init" title="Copiar comando" aria-label="Copiar comando /init"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Analisa o projeto na pasta atual e cria um arquivo <code class="inline">CLAUDE.md</code> com informações sobre o código, para o Claude "lembrar" do contexto em sessões futuras.</td></tr>
+        <tr><td><code class="cmd-dark">/clear</code><button class="copy-icon-btn" data-code="/clear" title="Copiar comando" aria-label="Copiar comando /clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Apaga o histórico da conversa atual e começa do zero (útil quando a conversa ficou longa ou mudou de assunto).</td></tr>
+        <tr><td><code class="cmd-dark">/compact</code><button class="copy-icon-btn" data-code="/compact" title="Copiar comando" aria-label="Copiar comando /compact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Resume a conversa atual para economizar espaço, mas mantém o contexto importante (diferente do <code class="inline">/clear</code>, que apaga tudo).</td></tr>
+        <tr><td><code class="cmd-dark">/status</code><button class="copy-icon-btn" data-code="/status" title="Copiar comando" aria-label="Copiar comando /status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Mostra informações sobre a sessão atual: modelo em uso, configurações, etc.</td></tr>
+        <tr><td><code class="cmd-dark">/help</code><button class="copy-icon-btn" data-code="/help" title="Copiar comando" aria-label="Copiar comando /help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Mostra ajuda geral sobre como usar o Claude Code.</td></tr>
+        <tr><td><code class="cmd-dark">/login</code><button class="copy-icon-btn" data-code="/login" title="Copiar comando" aria-label="Copiar comando /login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Faz login (ou troca de conta) na sua conta Claude/Anthropic.</td></tr>
+        <tr><td><code class="cmd-dark">/btw</code><button class="copy-icon-btn" data-code="/btw" title="Copiar comando" aria-label="Copiar comando /btw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Faz uma pergunta rápida paralela sem interromper o trabalho atual do Claude Code.</td></tr>
+      </tbody>
+    </table>
+    </section>
+
+    <section id="comandos-personalizados">
+    <h3>2.2 Comandos personalizados</h3>
     <p>Você pode criar seus próprios comandos <code class="inline">/slash</code>, que funcionam como "atalhos" para pedidos que você usa com frequência.</p>
     <p><strong>Como funciona:</strong> cada comando personalizado é um arquivo de texto guardado em uma pasta específica de comandos do Claude Code. Quando você digita <code class="inline">/nome-do-comando</code>, o Claude lê esse arquivo e segue as instruções escritas nele.</p>
     <p><strong>Exemplo prático:</strong> este próprio manual foi gerado a partir de um comando personalizado chamado <code class="inline">/manual-comandos</code>. Ao digitar:</p>
@@ -450,77 +689,125 @@
     <p>o Claude leu um arquivo com instruções detalhadas (o que incluir, como organizar, para quem escrever) e gerou este documento automaticamente — sem eu precisar reescrever o pedido inteiro toda vez.</p>
     <p><strong>Vantagem:</strong> em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita <code class="inline">/nome-do-comando</code> sempre que quiser repetir aquela tarefa.</p>
 
-    <h3>Como abrir e editar um comando</h3>
+    <h4>Como abrir e editar um comando</h4>
     <p>Todo comando personalizado é um arquivo <code class="inline">.md</code> guardado na pasta de comandos. Para criar ou editar qualquer um deles, abra o arquivo correspondente no Notepad:</p>
     <div class="code-block"><pre><code>notepad $HOME\.claude\commands\NOME-DO-COMANDO.md</code></pre><button class="copy-btn" data-code="notepad $HOME\.claude\commands\NOME-DO-COMANDO.md">Copiar</button></div>
     <p>Troque <code class="inline">NOME-DO-COMANDO</code> pelo nome do comando desejado. Por exemplo, para editar o coringa <code class="inline">/add-prompt</code>:</p>
     <div class="code-block"><pre><code>notepad $HOME\.claude\commands\add-prompt.md</code></pre><button class="copy-btn" data-code="notepad $HOME\.claude\commands\add-prompt.md">Copiar</button></div>
     <p>Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite <code class="inline">/add-prompt</code> em qualquer sessão do Claude Code.</p>
 
-    <h3>Comandos disponíveis</h3>
+    <h4>Comandos disponíveis</h4>
 
-    <div class="code-block"><pre><code>/add-prompt</code></pre><button class="copy-btn" data-code="/add-prompt">Copiar</button></div>
-    <p>Comando coringa para pedidos pontuais que não vão se repetir.</p>
-
-    <div class="code-block"><pre><code>/manual-comandos</code></pre><button class="copy-btn" data-code="/manual-comandos">Copiar</button></div>
-    <p>Gera o manual de referência em Markdown.</p>
-
-    <div class="code-block"><pre><code>/manual-html</code></pre><button class="copy-btn" data-code="/manual-html">Copiar</button></div>
-    <p>Converte o manual em página HTML navegável.</p>
-
-    <div class="code-block"><pre><code>/doc-setup</code></pre><button class="copy-btn" data-code="/doc-setup">Copiar</button></div>
-    <p>Gera o README com o setup pessoal do Claude Code.</p>
-
-    <div class="code-block"><pre><code>/todo-app</code></pre><button class="copy-btn" data-code="/todo-app">Copiar</button></div>
-    <p>Cria o projeto de teste (lista de tarefas).</p>
-
-    <div class="code-block"><pre><code>/eng-prompt</code></pre><button class="copy-btn" data-code="/eng-prompt">Copiar</button></div>
-    <p>Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar).</p>
-
-    <div class="code-block"><pre><code>/consultor-financeiro</code></pre><button class="copy-btn" data-code="/consultor-financeiro">Copiar</button></div>
-    <p>Ativa revisão de lógica financeira/contábil.</p>
-
-    <div class="code-block"><pre><code>/advogado-lgpd</code></pre><button class="copy-btn" data-code="/advogado-lgpd">Copiar</button></div>
-    <p>Ativa revisão de conformidade LGPD/proteção de dados.</p>
-
-    <div class="code-block"><pre><code>/marketing</code></pre><button class="copy-btn" data-code="/marketing">Copiar</button></div>
-    <p>Ativa apoio de copywriting e marketing.</p>
-
-    <div class="code-block"><pre><code>/revisor-qa</code></pre><button class="copy-btn" data-code="/revisor-qa">Copiar</button></div>
-    <p>Ativa revisão crítica de código como QA.</p>
-
-    <div class="code-block"><pre><code>/recrutador-tecnico</code></pre><button class="copy-btn" data-code="/recrutador-tecnico">Copiar</button></div>
-    <p>Ativa avaliação honesta de currículo/portfólio como recrutador técnico.</p>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="cmd-dark">/add-prompt</code><button class="copy-icon-btn" data-code="/add-prompt" title="Copiar comando" aria-label="Copiar comando /add-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Comando coringa para pedidos pontuais que não vão se repetir.</td></tr>
+        <tr><td><code class="cmd-dark">/manual-comandos</code><button class="copy-icon-btn" data-code="/manual-comandos" title="Copiar comando" aria-label="Copiar comando /manual-comandos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Gera o manual de referência em Markdown.</td></tr>
+        <tr><td><code class="cmd-dark">/manual-html</code><button class="copy-icon-btn" data-code="/manual-html" title="Copiar comando" aria-label="Copiar comando /manual-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Converte o manual em página HTML navegável.</td></tr>
+        <tr><td><code class="cmd-dark">/doc-setup</code><button class="copy-icon-btn" data-code="/doc-setup" title="Copiar comando" aria-label="Copiar comando /doc-setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Gera o README com o setup pessoal do Claude Code.</td></tr>
+        <tr><td><code class="cmd-dark">/todo-app</code><button class="copy-icon-btn" data-code="/todo-app" title="Copiar comando" aria-label="Copiar comando /todo-app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Cria o projeto de teste (lista de tarefas).</td></tr>
+        <tr><td><code class="cmd-dark">/eng-prompt</code><button class="copy-icon-btn" data-code="/eng-prompt" title="Copiar comando" aria-label="Copiar comando /eng-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar).</td></tr>
+        <tr><td><code class="cmd-dark">/consultor-financeiro</code><button class="copy-icon-btn" data-code="/consultor-financeiro" title="Copiar comando" aria-label="Copiar comando /consultor-financeiro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa revisão de lógica financeira/contábil.</td></tr>
+        <tr><td><code class="cmd-dark">/advogado-lgpd</code><button class="copy-icon-btn" data-code="/advogado-lgpd" title="Copiar comando" aria-label="Copiar comando /advogado-lgpd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa revisão de conformidade LGPD/proteção de dados.</td></tr>
+        <tr><td><code class="cmd-dark">/marketing</code><button class="copy-icon-btn" data-code="/marketing" title="Copiar comando" aria-label="Copiar comando /marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa apoio de copywriting e marketing.</td></tr>
+        <tr><td><code class="cmd-dark">/revisor-qa</code><button class="copy-icon-btn" data-code="/revisor-qa" title="Copiar comando" aria-label="Copiar comando /revisor-qa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa revisão crítica de código como QA.</td></tr>
+        <tr><td><code class="cmd-dark">/recrutador-tecnico</code><button class="copy-icon-btn" data-code="/recrutador-tecnico" title="Copiar comando" aria-label="Copiar comando /recrutador-tecnico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativa avaliação honesta de currículo/portfólio como recrutador técnico.</td></tr>
+      </tbody>
+    </table>
+    </section>
   </section>
 
   <section id="git-github">
-    <h2>5. Conexão com Git e GitHub</h2>
+    <h2>3. Git e GitHub</h2>
 
-    <h3>Como pedir para o Claude Code inicializar um repositório Git</h3>
-    <p>Basta pedir em linguagem natural, dentro da sessão do Claude Code:</p>
-    <div class="code-block"><pre><code>inicialize um repositório Git nesta pasta</code></pre><button class="copy-btn" data-code="inicialize um repositório Git nesta pasta">Copiar</button></div>
-    <p>O Claude vai rodar o comando <code class="inline">git init</code> para você.</p>
-
-    <h3>Como verificar se uma pasta já é um repositório Git</h3>
-    <p>Peça:</p>
-    <div class="code-block"><pre><code>verifique se esta pasta já é um repositório Git</code></pre><button class="copy-btn" data-code="verifique se esta pasta já é um repositório Git">Copiar</button></div>
-    <p>Ou, se quiser fazer você mesma no terminal:</p>
-    <div class="code-block"><pre><code>git status</code></pre><button class="copy-btn" data-code="git status">Copiar</button></div>
-    <p>Se aparecer uma mensagem de erro dizendo que não é um repositório, significa que ainda não foi inicializado.</p>
-
-    <h3>Como autenticar no GitHub</h3>
-    <p>No terminal, rode:</p>
-    <div class="code-block"><pre><code>gh auth login</code></pre><button class="copy-btn" data-code="gh auth login">Copiar</button></div>
-    <p>Isso abre um passo a passo (geralmente pelo navegador) para conectar sua conta do GitHub à ferramenta <code class="inline">gh</code> (GitHub CLI). Você só precisa fazer isso uma vez por computador.</p>
-
-    <h3>Como pedir para o Claude Code criar um repositório no GitHub e enviar o código (push)</h3>
-    <p>Depois de autenticado com <code class="inline">gh auth login</code>, peça em linguagem natural:</p>
-    <div class="code-block"><pre><code>crie um repositório no GitHub para este projeto e envie o código (push)</code></pre><button class="copy-btn" data-code="crie um repositório no GitHub para este projeto e envie o código (push)">Copiar</button></div>
-    <p>O Claude vai usar os comandos do Git e do <code class="inline">gh</code> para:</p>
-    <p>1. Criar o repositório remoto no GitHub.<br>
-    2. Conectar a pasta local a esse repositório.<br>
-    3. Enviar (<code class="inline">git push</code>) os arquivos.</p>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">inicialize um repositório Git nesta pasta</code><button class="copy-icon-btn" data-code="inicialize um repositório Git nesta pasta" title="Copiar comando" aria-label="Copiar comando inicialize um repositório Git nesta pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Pedido em linguagem natural, dentro da sessão do Claude Code: o Claude roda o comando <code class="inline">git init</code> para você.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">verifique se esta pasta já é um repositório Git</code><button class="copy-icon-btn" data-code="verifique se esta pasta já é um repositório Git" title="Copiar comando" aria-label="Copiar comando verifique se esta pasta já é um repositório Git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Pedido em linguagem natural para o Claude conferir se a pasta atual já é um repositório Git.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git status</code><button class="copy-icon-btn" data-code="git status" title="Copiar comando" aria-label="Copiar comando git status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Confere você mesma, direto no terminal. Se aparecer uma mensagem de erro dizendo que não é um repositório, significa que ainda não foi inicializado.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">gh auth login</code><button class="copy-icon-btn" data-code="gh auth login" title="Copiar comando" aria-label="Copiar comando gh auth login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Abre um passo a passo (geralmente pelo navegador) para conectar sua conta do GitHub à ferramenta <code class="inline">gh</code> (GitHub CLI). Só precisa fazer isso uma vez por computador.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">crie um repositório no GitHub para este projeto e envie o código (push)</code><button class="copy-icon-btn" data-code="crie um repositório no GitHub para este projeto e envie o código (push)" title="Copiar comando" aria-label="Copiar comando crie um repositório no GitHub para este projeto e envie o código (push)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Pedido em linguagem natural (depois de autenticada com <code class="inline">gh auth login</code>): o Claude usa os comandos do Git e do <code class="inline">gh</code> para criar o repositório remoto no GitHub, conectar a pasta local a ele e enviar (<code class="inline">git push</code>) os arquivos.</td>
+        </tr>
+      </tbody>
+    </table>
     <div class="warn"><strong>Dica de segurança:</strong> ações como criar repositórios públicos ou dar push costumam pedir sua confirmação antes de executar — é normal e esperado que o Claude pergunte antes de fazer algo que afeta o GitHub de verdade.</div>
+  </section>
+
+  <section id="notepad">
+    <h2>4. Notepad</h2>
+
+    <section id="notepad-atalhos">
+    <h3>4.1 Atalhos e Comandos</h3>
+    <p>Esses são atalhos padrão do Windows/Notepad, não específicos do Claude Code. Eles são úteis no fluxo de editar arquivos <code class="inline">.md</code> (como os comandos personalizados da seção 2.2), porque colar texto diretamente no campo do Claude Code tem um bug conhecido no Windows — o workaround é abrir o arquivo no Notepad e colar lá.</p>
+
+    <table>
+      <thead>
+        <tr><th>Atalho</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="cmd-dark">Ctrl+A</code><button class="copy-icon-btn" data-code="Ctrl+A" title="Copiar atalho" aria-label="Copiar atalho Ctrl+A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Selecionar todo o texto do arquivo</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+S</code><button class="copy-icon-btn" data-code="Ctrl+S" title="Copiar atalho" aria-label="Copiar atalho Ctrl+S"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Salvar o arquivo</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+V</code><button class="copy-icon-btn" data-code="Ctrl+V" title="Copiar atalho" aria-label="Copiar atalho Ctrl+V"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Colar</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+C</code><button class="copy-icon-btn" data-code="Ctrl+C" title="Copiar atalho" aria-label="Copiar atalho Ctrl+C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Copiar</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+Z</code><button class="copy-icon-btn" data-code="Ctrl+Z" title="Copiar atalho" aria-label="Copiar atalho Ctrl+Z"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Desfazer última ação</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+F</code><button class="copy-icon-btn" data-code="Ctrl+F" title="Copiar atalho" aria-label="Copiar atalho Ctrl+F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Buscar texto dentro do arquivo</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+End</code><button class="copy-icon-btn" data-code="Ctrl+End" title="Copiar atalho" aria-label="Copiar atalho Ctrl+End"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ir para o final do arquivo</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+Home</code><button class="copy-icon-btn" data-code="Ctrl+Home" title="Copiar atalho" aria-label="Copiar atalho Ctrl+Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ir para o início do arquivo</td></tr>
+        <tr><td><code class="cmd-dark">Alt+Tab</code><button class="copy-icon-btn" data-code="Alt+Tab" title="Copiar atalho" aria-label="Copiar atalho Alt+Tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Trocar entre janelas abertas (ex: Notepad e terminal)</td></tr>
+      </tbody>
+    </table>
+    </section>
+  </section>
+
+  <section id="email">
+    <h2>5. E-mail</h2>
+
+    <section id="plus-addressing">
+    <h3>5.1 Plus Addressing</h3>
+
+    <h4>Plus Addressing — criando e-mails de teste sem precisar de contas novas</h4>
+
+    <p><strong>Como funciona tecnicamente:</strong></p>
+    <ul>
+      <li>O padrão se chama "plus addressing" (ou "subaddressing").</li>
+      <li>Tudo entre o <code class="inline">+</code> e o <code class="inline">@</code> é ignorado pelo servidor de e-mail na hora de entregar a mensagem — mas fica visível no cabeçalho "Para:", então dá pra usar em filtros.</li>
+      <li><code class="inline">seuemail@gmail.com</code>, <code class="inline">seuemail+qualquercoisa@gmail.com</code>, <code class="inline">seuemail+123@gmail.com</code> → todos caem na mesma caixa.</li>
+    </ul>
+
+    <p><strong>Outro truque exclusivo do Gmail (bônus):</strong></p>
+    <p>O Gmail também ignora pontos no nome de usuário: <code class="inline">saburleluz@gmail.com</code> e <code class="inline">sa.burle.luz@gmail.com</code> são o mesmo endereço. Isso não é padrão universal — só Gmail faz isso; o "+" já é mais amplamente suportado (Outlook, iCloud, Yahoo etc., com algumas exceções).</p>
+
+    <p><strong>Para que serve na prática:</strong></p>
+    <ol>
+      <li><strong>Filtros automáticos</strong> — criar uma regra no Gmail pra qualquer coisa com <code class="inline">+nomedoteste</code> ir direto pra uma pasta/label.</li>
+      <li><strong>Rastrear vazamentos</strong> — usar <code class="inline">+nomedosite</code> ao se cadastrar em serviços diferentes; se começar a receber spam nesse alias específico, você sabe exatamente qual site vazou seu e-mail.</li>
+      <li><strong>Testes de desenvolvimento</strong> — simular múltiplos "usuários" de teste sem precisar de e-mails reais separados.</li>
+    </ol>
+
+    <p><strong>Limitação a saber:</strong></p>
+    <p>Alguns formulários de cadastro rejeitam o "+" por validação de e-mail malfeita, ou alguns serviços de e-mail corporativo bloqueiam por segurança. Fora isso, funciona na maioria dos lugares.</p>
+
+    <p>Use este mesmo truque manualmente (<code class="inline">seuemail+teste2@gmail.com</code>, <code class="inline">seuemail+bugX@gmail.com</code>) sempre que precisar simular contas diferentes de usuário durante testes de qualquer projeto.</p>
+    </section>
   </section>
 
   <section id="meus-caminhos">
@@ -550,30 +837,48 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
   </section>
 
   <section id="resumo">
-    <h2>Resumo rápido (cola de bolso)</h2>
+    <h2>7. Resumo rápido (cola de bolso)</h2>
     <table>
       <thead>
-        <tr><th>Quero...</th><th>Comando</th></tr>
+        <tr><th>Comando</th><th>Quero...</th></tr>
       </thead>
       <tbody>
-        <tr><td>Ver onde estou</td><td><code>pwd</code></td></tr>
-        <tr><td>Ver arquivos da pasta</td><td><code>ls</code> ou <code>dir</code></td></tr>
-        <tr><td>Entrar numa pasta</td><td><code>cd nome-da-pasta</code></td></tr>
-        <tr><td>Voltar uma pasta</td><td><code>cd ..</code></td></tr>
-        <tr><td>Criar pasta</td><td><code>mkdir nome</code></td></tr>
-        <tr><td>Apagar pasta (⚠️ cuidado)</td><td><code>Remove-Item nome -Recurse</code></td></tr>
-        <tr><td>Apagar arquivo (⚠️ cuidado)</td><td><code>Remove-Item arquivo</code></td></tr>
-        <tr><td>Abrir o Claude Code</td><td><code>claude</code></td></tr>
-        <tr><td>Fechar o Claude Code</td><td><code>Ctrl+C</code> (duas vezes)</td></tr>
-        <tr><td>Parar uma ação em andamento</td><td><code>Esc</code></td></tr>
-        <tr><td>Completar a frase sugerida no campo</td><td><code>Ctrl+Tab</code></td></tr>
-        <tr><td>Limpar a conversa</td><td><code>/clear</code></td></tr>
-        <tr><td>Resumir a conversa</td><td><code>/compact</code></td></tr>
-        <tr><td>Documentar o projeto</td><td><code>/init</code></td></tr>
-        <tr><td>Ver status da sessão</td><td><code>/status</code></td></tr>
-        <tr><td>Pedir ajuda</td><td><code>/help</code></td></tr>
-        <tr><td>Fazer login</td><td><code>/login</code></td></tr>
-        <tr><td>Login no GitHub</td><td><code>gh auth login</code></td></tr>
+        <tr><td><code class="cmd-dark">pwd</code><button class="copy-icon-btn" data-code="pwd" title="Copiar comando" aria-label="Copiar comando pwd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ver onde estou</td></tr>
+        <tr><td><code class="cmd-dark">ls</code><button class="copy-icon-btn" data-code="ls" title="Copiar comando" aria-label="Copiar comando ls"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button> ou <code class="cmd-dark">dir</code><button class="copy-icon-btn" data-code="dir" title="Copiar comando" aria-label="Copiar comando dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ver arquivos da pasta</td></tr>
+        <tr><td><code class="cmd-dark">cd nome-da-pasta</code><button class="copy-icon-btn" data-code="cd nome-da-pasta" title="Copiar comando" aria-label="Copiar comando cd nome-da-pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Entrar numa pasta</td></tr>
+        <tr><td><code class="cmd-dark">cd ..</code><button class="copy-icon-btn" data-code="cd .." title="Copiar comando" aria-label="Copiar comando cd .."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Voltar uma pasta</td></tr>
+        <tr><td><code class="cmd-dark">cd ~</code><button class="copy-icon-btn" data-code="cd ~" title="Copiar comando" aria-label="Copiar comando cd ~"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Voltar para a pasta do usuário</td></tr>
+        <tr><td><code class="cmd-dark">mkdir nome</code><button class="copy-icon-btn" data-code="mkdir nome" title="Copiar comando" aria-label="Copiar comando mkdir nome"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Criar pasta</td></tr>
+        <tr><td><code class="cmd-dark">Remove-Item nome -Recurse</code><button class="copy-icon-btn" data-code="Remove-Item nome -Recurse" title="Copiar comando" aria-label="Copiar comando Remove-Item nome -Recurse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Apagar pasta (⚠️ cuidado)</td></tr>
+        <tr><td><code class="cmd-dark">Remove-Item arquivo</code><button class="copy-icon-btn" data-code="Remove-Item arquivo" title="Copiar comando" aria-label="Copiar comando Remove-Item arquivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Apagar arquivo (⚠️ cuidado)</td></tr>
+        <tr><td><code class="cmd-dark">claude</code><button class="copy-icon-btn" data-code="claude" title="Copiar comando" aria-label="Copiar comando claude"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Abrir o Claude Code</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+C</code><button class="copy-icon-btn" data-code="Ctrl+C" title="Copiar atalho" aria-label="Copiar atalho Ctrl+C"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button> (duas vezes)</td><td>Fechar o Claude Code</td></tr>
+        <tr><td><code class="cmd-dark">Esc</code><button class="copy-icon-btn" data-code="Esc" title="Copiar atalho" aria-label="Copiar atalho Esc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Parar uma ação em andamento</td></tr>
+        <tr><td><code class="cmd-dark">Shift+Tab</code><button class="copy-icon-btn" data-code="Shift+Tab" title="Copiar atalho" aria-label="Copiar atalho Shift+Tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Alternar modo de permissão</td></tr>
+        <tr><td><code class="cmd-dark">Ctrl+Tab</code><button class="copy-icon-btn" data-code="Ctrl+Tab" title="Copiar atalho" aria-label="Copiar atalho Ctrl+Tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Completar a frase sugerida no campo</td></tr>
+        <tr><td><code class="cmd-dark">/clear</code><button class="copy-icon-btn" data-code="/clear" title="Copiar comando" aria-label="Copiar comando /clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Limpar a conversa</td></tr>
+        <tr><td><code class="cmd-dark">/compact</code><button class="copy-icon-btn" data-code="/compact" title="Copiar comando" aria-label="Copiar comando /compact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Resumir a conversa</td></tr>
+        <tr><td><code class="cmd-dark">/init</code><button class="copy-icon-btn" data-code="/init" title="Copiar comando" aria-label="Copiar comando /init"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Documentar o projeto</td></tr>
+        <tr><td><code class="cmd-dark">/status</code><button class="copy-icon-btn" data-code="/status" title="Copiar comando" aria-label="Copiar comando /status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ver status da sessão</td></tr>
+        <tr><td><code class="cmd-dark">/help</code><button class="copy-icon-btn" data-code="/help" title="Copiar comando" aria-label="Copiar comando /help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Pedir ajuda</td></tr>
+        <tr><td><code class="cmd-dark">/login</code><button class="copy-icon-btn" data-code="/login" title="Copiar comando" aria-label="Copiar comando /login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Fazer login</td></tr>
+        <tr><td><code class="cmd-dark">/btw</code><button class="copy-icon-btn" data-code="/btw" title="Copiar comando" aria-label="Copiar comando /btw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Fazer uma pergunta rápida sem interromper</td></tr>
+        <tr><td><code class="cmd-dark">/add-prompt</code><button class="copy-icon-btn" data-code="/add-prompt" title="Copiar comando" aria-label="Copiar comando /add-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Pedido pontual coringa</td></tr>
+        <tr><td><code class="cmd-dark">/manual-comandos</code><button class="copy-icon-btn" data-code="/manual-comandos" title="Copiar comando" aria-label="Copiar comando /manual-comandos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Gerar o manual em Markdown</td></tr>
+        <tr><td><code class="cmd-dark">/manual-html</code><button class="copy-icon-btn" data-code="/manual-html" title="Copiar comando" aria-label="Copiar comando /manual-html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Converter o manual em HTML</td></tr>
+        <tr><td><code class="cmd-dark">/doc-setup</code><button class="copy-icon-btn" data-code="/doc-setup" title="Copiar comando" aria-label="Copiar comando /doc-setup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Gerar o README do setup pessoal</td></tr>
+        <tr><td><code class="cmd-dark">/todo-app</code><button class="copy-icon-btn" data-code="/todo-app" title="Copiar comando" aria-label="Copiar comando /todo-app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Criar o projeto de teste (to-do list)</td></tr>
+        <tr><td><code class="cmd-dark">/eng-prompt</code><button class="copy-icon-btn" data-code="/eng-prompt" title="Copiar comando" aria-label="Copiar comando /eng-prompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar protocolo de engenheiro de prompt</td></tr>
+        <tr><td><code class="cmd-dark">/consultor-financeiro</code><button class="copy-icon-btn" data-code="/consultor-financeiro" title="Copiar comando" aria-label="Copiar comando /consultor-financeiro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar revisão financeira/contábil</td></tr>
+        <tr><td><code class="cmd-dark">/advogado-lgpd</code><button class="copy-icon-btn" data-code="/advogado-lgpd" title="Copiar comando" aria-label="Copiar comando /advogado-lgpd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar revisão de conformidade LGPD</td></tr>
+        <tr><td><code class="cmd-dark">/marketing</code><button class="copy-icon-btn" data-code="/marketing" title="Copiar comando" aria-label="Copiar comando /marketing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar apoio de marketing/copywriting</td></tr>
+        <tr><td><code class="cmd-dark">/revisor-qa</code><button class="copy-icon-btn" data-code="/revisor-qa" title="Copiar comando" aria-label="Copiar comando /revisor-qa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar revisão crítica de código (QA)</td></tr>
+        <tr><td><code class="cmd-dark">/recrutador-tecnico</code><button class="copy-icon-btn" data-code="/recrutador-tecnico" title="Copiar comando" aria-label="Copiar comando /recrutador-tecnico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ativar avaliação de currículo/portfólio</td></tr>
+        <tr><td><code class="cmd-dark">inicialize um repositório Git nesta pasta</code><button class="copy-icon-btn" data-code="inicialize um repositório Git nesta pasta" title="Copiar comando" aria-label="Copiar comando inicialize um repositório Git nesta pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Inicializar um repositório Git</td></tr>
+        <tr><td><code class="cmd-dark">verifique se esta pasta já é um repositório Git</code><button class="copy-icon-btn" data-code="verifique se esta pasta já é um repositório Git" title="Copiar comando" aria-label="Copiar comando verifique se esta pasta já é um repositório Git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Verificar se a pasta já é um repositório Git</td></tr>
+        <tr><td><code class="cmd-dark">git status</code><button class="copy-icon-btn" data-code="git status" title="Copiar comando" aria-label="Copiar comando git status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Ver status do Git</td></tr>
+        <tr><td><code class="cmd-dark">gh auth login</code><button class="copy-icon-btn" data-code="gh auth login" title="Copiar comando" aria-label="Copiar comando gh auth login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Login no GitHub</td></tr>
+        <tr><td><code class="cmd-dark">crie um repositório no GitHub para este projeto e envie o código (push)</code><button class="copy-icon-btn" data-code="crie um repositório no GitHub para este projeto e envie o código (push)" title="Copiar comando" aria-label="Copiar comando crie um repositório no GitHub para este projeto e envie o código (push)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td><td>Criar repositório no GitHub e enviar código</td></tr>
       </tbody>
     </table>
   </section>
@@ -581,14 +886,81 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
   <footer>Manual de Comandos — gerado a partir de MANUAL-COMANDOS.md</footer>
 </main>
 
-<button id="backToTop" class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+<div class="fab-wrapper">
+  <button id="fabMenuBtn" class="fab-btn" aria-label="Abrir menu de navegação" aria-haspopup="true" aria-expanded="false" title="Menu">☰</button>
+  <ul id="fabDropdown" class="fab-dropdown" role="menu">
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#powershell" role="menuitem">1. PowerShell</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de PowerShell">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#navegacao" role="menuitem" class="sub-link">1.1 Navegação de pastas</a></li>
+        <li role="none"><a href="#interagir-claude" role="menuitem" class="sub-link">1.2 Interagir com o Claude Code</a></li>
+      </ul>
+    </li>
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#claude-code" role="menuitem">2. Claude Code</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Claude Code">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#comandos-nativos" role="menuitem" class="sub-link">2.1 Comandos slash nativos</a></li>
+        <li role="none"><a href="#comandos-personalizados" role="menuitem" class="sub-link">2.2 Comandos personalizados</a></li>
+      </ul>
+    </li>
+    <li role="none"><a href="#git-github" role="menuitem">3. Git e GitHub</a></li>
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#notepad" role="menuitem">4. Notepad</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Notepad">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#notepad-atalhos" role="menuitem" class="sub-link">4.1 Atalhos e Comandos</a></li>
+      </ul>
+    </li>
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#email" role="menuitem">5. E-mail</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de E-mail">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#plus-addressing" role="menuitem" class="sub-link">5.1 Plus Addressing</a></li>
+      </ul>
+    </li>
+    <li role="none"><a href="#meus-caminhos" role="menuitem">6. Meus Caminhos</a></li>
+    <li role="none"><a href="#resumo" role="menuitem">7. Resumo rápido</a></li>
+    <li class="fab-divider" role="none"></li>
+    <li role="none"><a href="#top" id="fabBackToTop" class="fab-top-link" role="menuitem">↑ Voltar ao topo</a></li>
+  </ul>
+</div>
 
 <script>
-  // Copy-to-clipboard for code blocks
+  // Shared clipboard helper (works for both full code-block buttons and inline icon buttons)
+  function copyToClipboard(text, onDone) {
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      onDone();
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(onDone).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  // Copy-to-clipboard for full code blocks (text button)
   document.querySelectorAll('.copy-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var text = btn.getAttribute('data-code');
-      var done = function () {
+      copyToClipboard(text, function () {
         var original = btn.textContent;
         btn.textContent = 'Copiado!';
         btn.classList.add('copied');
@@ -596,23 +968,40 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
           btn.textContent = original === 'Copiado!' ? 'Copiar' : original;
           btn.classList.remove('copied');
         }, 1500);
-      };
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+      });
+    });
+  });
+
+  // Copy-to-clipboard for inline icon buttons inside table rows
+  document.querySelectorAll('.copy-icon-btn').forEach(function (btn) {
+    var originalTitle = btn.getAttribute('title') || 'Copiar comando';
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-code');
+      copyToClipboard(text, function () {
+        btn.classList.add('copied');
+        btn.setAttribute('title', 'Copiado!');
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          btn.setAttribute('title', originalTitle);
+        }, 1200);
+      });
+    });
+  });
+
+  // Retractable nav groups: toggle subsections for master categories that have them
+  document.querySelectorAll('.nav-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var group = btn.closest('.nav-group');
+      var sublist = group.querySelector('.nav-sublist');
+      var isHidden = sublist.hasAttribute('hidden');
+      if (isHidden) {
+        sublist.removeAttribute('hidden');
       } else {
-        fallbackCopy();
+        sublist.setAttribute('hidden', '');
       }
-      function fallbackCopy() {
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
-        done();
-      }
+      btn.classList.toggle('expanded', isHidden);
+      btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
     });
   });
 
@@ -634,18 +1023,57 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
   window.addEventListener('scroll', onScroll);
   onScroll();
 
-  // Back-to-top floating button
-  var backToTop = document.getElementById('backToTop');
+  // Floating menu button (nav shortcut + back-to-top)
+  var fabWrapper = document.querySelector('.fab-wrapper');
+  var fabBtn = document.getElementById('fabMenuBtn');
+  var fabDropdown = document.getElementById('fabDropdown');
+  var fabBackToTop = document.getElementById('fabBackToTop');
 
-  function toggleBackToTop() {
-    backToTop.classList.toggle('visible', window.scrollY > 400);
+  function toggleFabVisibility() {
+    fabBtn.classList.toggle('visible', window.scrollY > 400);
   }
 
-  window.addEventListener('scroll', toggleBackToTop, { passive: true });
-  toggleBackToTop();
+  function openFabDropdown() {
+    fabDropdown.classList.add('open');
+    fabBtn.setAttribute('aria-expanded', 'true');
+  }
 
-  backToTop.addEventListener('click', function () {
+  function closeFabDropdown() {
+    fabDropdown.classList.remove('open');
+    fabBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  window.addEventListener('scroll', toggleFabVisibility, { passive: true });
+  toggleFabVisibility();
+
+  fabBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (fabDropdown.classList.contains('open')) {
+      closeFabDropdown();
+    } else {
+      openFabDropdown();
+    }
+  });
+
+  fabDropdown.addEventListener('click', function (e) {
+    var link = e.target.closest('a');
+    if (!link) return;
+    closeFabDropdown();
+  });
+
+  fabBackToTop.addEventListener('click', function (e) {
+    e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (fabDropdown.classList.contains('open') && !fabWrapper.contains(e.target)) {
+      closeFabDropdown();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeFabDropdown();
   });
 </script>
 

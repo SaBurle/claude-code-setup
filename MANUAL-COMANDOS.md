@@ -2,89 +2,54 @@
 
 Guia de referência rápida para quem está começando a usar o terminal (PowerShell) e o Claude Code. Guarde este arquivo e volte a ele sempre que esquecer um comando.
 
+## Sumário
+
+1. PowerShell
+   1.1 Navegação de pastas
+   1.2 Interagir com o Claude Code
+2. Claude Code
+   2.1 Comandos slash nativos
+   2.2 Comandos personalizados
+3. Git e GitHub
+4. Notepad
+   4.1 Atalhos e Comandos
+5. E-mail
+   5.1 Plus Addressing
+6. Meus Caminhos
+7. Resumo rápido (cola de bolso)
+
 ---
 
-## 1. Navegação básica de pastas no PowerShell
+## 1. PowerShell
+
+### 1.1 Navegação de pastas
 
 O terminal fica sempre "dentro" de uma pasta. Os comandos abaixo servem para andar entre pastas e ver o que existe dentro delas.
 
-### Ver em qual pasta eu estou
-```powershell
-pwd
-```
-Mostra o caminho completo da pasta atual (ex: `C:\Users\Samara\Claude`).
+| Comando | O que faz |
+|---|---|
+| `pwd` | Mostra o caminho completo da pasta atual (ex: `C:\Users\Samara\Claude`). |
+| `ls` | Lista arquivos e pastas da pasta atual. |
+| `dir` | Mesma coisa que `ls` — nome mais tradicional do Windows. |
+| `cd nome-da-pasta` | Entra na pasta indicada. Exemplo: `cd Claude`. Se o nome tiver espaço, use aspas: `cd "Minha Pasta"`. |
+| `cd Claude\Projetos\teste-claude-code` | Entra direto em várias subpastas em sequência (`Claude` → `Projetos` → `teste-claude-code`), em um único comando. |
+| `cd ..` | Volta uma pasta (sobe um nível). |
+| `cd ~` | Volta direto para a pasta do usuário. |
+| `mkdir nome-da-pasta` | Cria uma pasta nova. Exemplo: `mkdir projeto-novo`. |
+| `Remove-Item nome-da-pasta -Recurse` | ⚠️ Apaga a pasta e tudo o que está dentro dela, sem pedir confirmação e sem ir para a lixeira. Não tem "desfazer" — confira bem o nome antes de apertar Enter. |
+| `Remove-Item nome-da-pasta -Recurse -Confirm` | Mesma coisa, mas pede confirmação antes de apagar cada item. |
+| `Remove-Item nome-do-arquivo.txt` | Apaga um arquivo. Mesmo aviso: não vai para a lixeira, é definitivo. |
 
-### Listar arquivos e pastas
-```powershell
-ls
-```
-ou, se preferir o nome mais tradicional do Windows:
-```powershell
-dir
-```
-Os dois fazem a mesma coisa: mostram o que tem dentro da pasta atual.
+### 1.2 Interagir com o Claude Code
 
-### Entrar em uma pasta
-```powershell
-cd nome-da-pasta
-```
-Exemplo:
-```powershell
-cd Claude
-```
-Se o nome da pasta tiver espaço, use aspas:
-```powershell
-cd "Minha Pasta"
-```
-
-### Voltar uma pasta (subir um nível)
-```powershell
-cd ..
-```
-
-### Voltar direto para a pasta do usuário
-```powershell
-cd ~
-```
-
-### Criar uma pasta nova
-```powershell
-mkdir nome-da-pasta
-```
-Exemplo:
-```powershell
-mkdir projeto-novo
-```
-
-### Deletar uma pasta ⚠️
-```powershell
-Remove-Item nome-da-pasta -Recurse
-```
-**Cuidado:** isso apaga a pasta e tudo o que está dentro dela, sem pedir confirmação e sem ir para a lixeira. Não tem "desfazer". Confira bem o nome da pasta antes de apertar Enter.
-
-Se quiser que o PowerShell pergunte antes de apagar cada item, use:
-```powershell
-Remove-Item nome-da-pasta -Recurse -Confirm
-```
-
-### Deletar um arquivo
-```powershell
-Remove-Item nome-do-arquivo.txt
-```
-Mesmo aviso: não vai para a lixeira, é definitivo.
-
----
-
-## 2. Como interagir com o Claude Code
-
-### A diferença entre "pedido livre" e "comando slash"
+#### A diferença entre "pedido livre" e "comando slash"
 
 - **Pedido em linguagem natural**: você escreve o que quer, como se estivesse conversando ou mandando mensagem para uma pessoa. Exemplo: `crie um arquivo README explicando este projeto`. O Claude interpreta o pedido e decide o que fazer.
 - **Comando slash** (`/algumacoisa`): é um atalho fixo, que sempre faz a mesma ação predefinida. Exemplo: `/clear` sempre limpa a conversa, não importa o que você escreva depois.
 
 Resumindo: se você quer que o Claude *pense* e resolva algo, escreva normalmente. Se você quer executar uma ação específica e conhecida, use um comando `/slash`.
 
-### Onde digitar cada coisa
+#### Onde digitar cada coisa
 
 Existe um único campo de texto na tela do Claude Code — é ali que você digita **tanto** pedidos livres **quanto** comandos slash. A diferença é só o `/` no começo:
 
@@ -95,42 +60,21 @@ Preciso de uma função que valide CPF
 /clear
 ```
 
-### Como abrir uma sessão do Claude Code
+#### Comandos e atalhos essenciais
 
-No terminal (PowerShell), dentro da pasta do seu projeto, digite:
-```powershell
-claude
-```
-Isso abre a sessão interativa do Claude Code naquela pasta.
-
-### Como fechar/sair de uma sessão
-
-Aperte:
-```
-Ctrl+C
-```
-duas vezes seguidas. A primeira vez avisa que você está saindo; a segunda confirma e fecha.
-
-### Como interromper uma ação em andamento
-
-Se o Claude estiver executando algo e você quiser pará-lo (sem fechar a sessão inteira), aperte:
-```
-Esc
-```
-Isso cancela a ação atual, mas mantém a conversa aberta para você continuar dando instruções.
-
-### Atalhos de teclado essenciais
-
-| Atalho | O que faz |
+| Comando / Atalho | O que faz |
 |---|---|
-| `Ctrl+C` (duas vezes) | Fecha/sai da sessão atual. |
-| `Esc` | Interrompe a ação em andamento, sem fechar a sessão. |
+| `claude` | No terminal, dentro da pasta do seu projeto: abre a sessão interativa do Claude Code naquela pasta. |
+| `Ctrl+C` (duas vezes) | Fecha/sai da sessão atual — a primeira vez avisa que você está saindo, a segunda confirma e fecha. |
+| `Esc` | Se o Claude estiver executando algo, interrompe a ação em andamento sem fechar a sessão inteira. |
 | `Shift+Tab` | Alterna o modo de permissão da conversa (negar / aprovar automaticamente / aprovar a cada turno). |
 | `Ctrl+Tab` | Completa a frase sugerida no campo, para você enviar sem precisar redigitar. |
 
 ---
 
-## 3. Comandos slash nativos essenciais
+## 2. Claude Code
+
+### 2.1 Comandos slash nativos
 
 | Comando | O que faz |
 |---|---|
@@ -140,10 +84,9 @@ Isso cancela a ação atual, mas mantém a conversa aberta para você continuar 
 | `/status` | Mostra informações sobre a sessão atual: modelo em uso, configurações, etc. |
 | `/help` | Mostra ajuda geral sobre como usar o Claude Code. |
 | `/login` | Faz login (ou troca de conta) na sua conta Claude/Anthropic. |
+| `/btw` | Faz uma pergunta rápida paralela sem interromper o trabalho atual do Claude Code. |
 
----
-
-## 4. Como usar comandos personalizados (slash commands que você mesma cria)
+### 2.2 Comandos personalizados
 
 Você pode criar seus próprios comandos `/slash`, que funcionam como "atalhos" para pedidos que você usa com frequência.
 
@@ -157,7 +100,7 @@ o Claude leu um arquivo com instruções detalhadas (o que incluir, como organiz
 
 **Vantagem:** em vez de digitar um pedido longo e detalhado sempre que precisar da mesma coisa, você cria o comando uma vez e depois só digita `/nome-do-comando` sempre que quiser repetir aquela tarefa.
 
-### Como abrir e editar um comando
+#### Como abrir e editar um comando
 
 Todo comando personalizado é um arquivo `.md` guardado na pasta de comandos. Para criar ou editar qualquer um deles, abra o arquivo correspondente no Notepad:
 
@@ -173,118 +116,83 @@ notepad $HOME\.claude\commands\add-prompt.md
 
 Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite `/add-prompt` em qualquer sessão do Claude Code.
 
-### Comandos disponíveis
+#### Comandos disponíveis
 
-#### `/add-prompt`
-```
-/add-prompt
-```
-Comando coringa para pedidos pontuais que não vão se repetir.
-
-#### `/manual-comandos`
-```
-/manual-comandos
-```
-Gera o manual de referência em Markdown.
-
-#### `/manual-html`
-```
-/manual-html
-```
-Converte o manual em página HTML navegável.
-
-#### `/doc-setup`
-```
-/doc-setup
-```
-Gera o README com o setup pessoal do Claude Code.
-
-#### `/todo-app`
-```
-/todo-app
-```
-Cria o projeto de teste (lista de tarefas).
-
-#### `/eng-prompt`
-```
-/eng-prompt
-```
-Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar).
-
-#### `/consultor-financeiro`
-```
-/consultor-financeiro
-```
-Ativa revisão de lógica financeira/contábil.
-
-#### `/advogado-lgpd`
-```
-/advogado-lgpd
-```
-Ativa revisão de conformidade LGPD/proteção de dados.
-
-#### `/marketing`
-```
-/marketing
-```
-Ativa apoio de copywriting e marketing.
-
-#### `/revisor-qa`
-```
-/revisor-qa
-```
-Ativa revisão crítica de código como QA.
-
-#### `/recrutador-tecnico`
-```
-/recrutador-tecnico
-```
-Ativa avaliação honesta de currículo/portfólio como recrutador técnico.
+| Comando | O que faz |
+|---|---|
+| `/add-prompt` | Comando coringa para pedidos pontuais que não vão se repetir. |
+| `/manual-comandos` | Gera o manual de referência em Markdown. |
+| `/manual-html` | Converte o manual em página HTML navegável. |
+| `/doc-setup` | Gera o README com o setup pessoal do Claude Code. |
+| `/todo-app` | Cria o projeto de teste (lista de tarefas). |
+| `/eng-prompt` | Ativa o protocolo de engenheiro de prompt (backlog, confirmação em etapas, plano antes de executar). |
+| `/consultor-financeiro` | Ativa revisão de lógica financeira/contábil. |
+| `/advogado-lgpd` | Ativa revisão de conformidade LGPD/proteção de dados. |
+| `/marketing` | Ativa apoio de copywriting e marketing. |
+| `/revisor-qa` | Ativa revisão crítica de código como QA. |
+| `/recrutador-tecnico` | Ativa avaliação honesta de currículo/portfólio como recrutador técnico. |
 
 ---
 
-## 5. Conexão com Git e GitHub
+## 3. Git e GitHub
 
-### Como pedir para o Claude Code inicializar um repositório Git
-
-Basta pedir em linguagem natural, dentro da sessão do Claude Code:
-```
-inicialize um repositório Git nesta pasta
-```
-O Claude vai rodar o comando `git init` para você.
-
-### Como verificar se uma pasta já é um repositório Git
-
-Peça:
-```
-verifique se esta pasta já é um repositório Git
-```
-Ou, se quiser fazer você mesma no terminal:
-```powershell
-git status
-```
-Se aparecer uma mensagem de erro dizendo que não é um repositório, significa que ainda não foi inicializado.
-
-### Como autenticar no GitHub
-
-No terminal, rode:
-```powershell
-gh auth login
-```
-Isso abre um passo a passo (geralmente pelo navegador) para conectar sua conta do GitHub à ferramenta `gh` (GitHub CLI). Você só precisa fazer isso uma vez por computador.
-
-### Como pedir para o Claude Code criar um repositório no GitHub e enviar o código (push)
-
-Depois de autenticado com `gh auth login`, peça em linguagem natural:
-```
-crie um repositório no GitHub para este projeto e envie o código (push)
-```
-O Claude vai usar os comandos do Git e do `gh` para:
-1. Criar o repositório remoto no GitHub.
-2. Conectar a pasta local a esse repositório.
-3. Enviar (`git push`) os arquivos.
+| Comando | O que faz |
+|---|---|
+| `inicialize um repositório Git nesta pasta` | Pedido em linguagem natural, dentro da sessão do Claude Code: o Claude roda o comando `git init` para você. |
+| `verifique se esta pasta já é um repositório Git` | Pedido em linguagem natural para o Claude conferir se a pasta atual já é um repositório Git. |
+| `git status` | Confere você mesma, direto no terminal. Se aparecer uma mensagem de erro dizendo que não é um repositório, significa que ainda não foi inicializado. |
+| `gh auth login` | Abre um passo a passo (geralmente pelo navegador) para conectar sua conta do GitHub à ferramenta `gh` (GitHub CLI). Só precisa fazer isso uma vez por computador. |
+| `crie um repositório no GitHub para este projeto e envie o código (push)` | Pedido em linguagem natural (depois de autenticada com `gh auth login`): o Claude usa os comandos do Git e do `gh` para criar o repositório remoto no GitHub, conectar a pasta local a ele e enviar (`git push`) os arquivos. |
 
 **Dica de segurança:** ações como criar repositórios públicos ou dar push costumam pedir sua confirmação antes de executar — é normal e esperado que o Claude pergunte antes de fazer algo que afeta o GitHub de verdade.
+
+---
+
+## 4. Notepad
+
+### 4.1 Atalhos e Comandos
+
+Esses são atalhos padrão do Windows/Notepad, não específicos do Claude Code. Eles são úteis no fluxo de editar arquivos `.md` (como os comandos personalizados da seção 2.2), porque colar texto diretamente no campo do Claude Code tem um bug conhecido no Windows — o workaround é abrir o arquivo no Notepad e colar lá.
+
+| Atalho | O que faz |
+|---|---|
+| `Ctrl+A` | Selecionar todo o texto do arquivo |
+| `Ctrl+S` | Salvar o arquivo |
+| `Ctrl+V` | Colar |
+| `Ctrl+C` | Copiar |
+| `Ctrl+Z` | Desfazer última ação |
+| `Ctrl+F` | Buscar texto dentro do arquivo |
+| `Ctrl+End` | Ir para o final do arquivo |
+| `Ctrl+Home` | Ir para o início do arquivo |
+| `Alt+Tab` | Trocar entre janelas abertas (ex: Notepad e terminal) |
+
+---
+
+## 5. E-mail
+
+### 5.1 Plus Addressing
+
+#### Plus Addressing — criando e-mails de teste sem precisar de contas novas
+
+**Como funciona tecnicamente:**
+- O padrão se chama "plus addressing" (ou "subaddressing").
+- Tudo entre o `+` e o `@` é ignorado pelo servidor de e-mail na hora de entregar a mensagem — mas fica visível no cabeçalho "Para:", então dá pra usar em filtros.
+- `seuemail@gmail.com`, `seuemail+qualquercoisa@gmail.com`, `seuemail+123@gmail.com` → todos caem na mesma caixa.
+
+**Outro truque exclusivo do Gmail (bônus):**
+
+O Gmail também ignora pontos no nome de usuário: `saburleluz@gmail.com` e `sa.burle.luz@gmail.com` são o mesmo endereço. Isso não é padrão universal — só Gmail faz isso; o "+" já é mais amplamente suportado (Outlook, iCloud, Yahoo etc., com algumas exceções).
+
+**Para que serve na prática:**
+1. **Filtros automáticos** — criar uma regra no Gmail pra qualquer coisa com `+nomedoteste` ir direto pra uma pasta/label.
+2. **Rastrear vazamentos** — usar `+nomedosite` ao se cadastrar em serviços diferentes; se começar a receber spam nesse alias específico, você sabe exatamente qual site vazou seu e-mail.
+3. **Testes de desenvolvimento** — simular múltiplos "usuários" de teste sem precisar de e-mails reais separados.
+
+**Limitação a saber:**
+
+Alguns formulários de cadastro rejeitam o "+" por validação de e-mail malfeita, ou alguns serviços de e-mail corporativo bloqueiam por segurança. Fora isso, funciona na maioria dos lugares.
+
+Use este mesmo truque manualmente (`seuemail+teste2@gmail.com`, `seuemail+bugX@gmail.com`) sempre que precisar simular contas diferentes de usuário durante testes de qualquer projeto.
 
 ---
 
@@ -327,25 +235,43 @@ claude
 
 ---
 
-## Resumo rápido (cola de bolso)
+## 7. Resumo rápido (cola de bolso)
 
-| Quero... | Comando |
+| Comando | Quero... |
 |---|---|
-| Ver onde estou | `pwd` |
-| Ver arquivos da pasta | `ls` ou `dir` |
-| Entrar numa pasta | `cd nome-da-pasta` |
-| Voltar uma pasta | `cd ..` |
-| Criar pasta | `mkdir nome` |
-| Apagar pasta (⚠️ cuidado) | `Remove-Item nome -Recurse` |
-| Apagar arquivo (⚠️ cuidado) | `Remove-Item arquivo` |
-| Abrir o Claude Code | `claude` |
-| Fechar o Claude Code | `Ctrl+C` (duas vezes) |
-| Parar uma ação em andamento | `Esc` |
-| Completar a frase sugerida no campo | `Ctrl+Tab` |
-| Limpar a conversa | `/clear` |
-| Resumir a conversa | `/compact` |
-| Documentar o projeto | `/init` |
-| Ver status da sessão | `/status` |
-| Pedir ajuda | `/help` |
-| Fazer login | `/login` |
-| Login no GitHub | `gh auth login` |
+| `pwd` | Ver onde estou |
+| `ls` ou `dir` | Ver arquivos da pasta |
+| `cd nome-da-pasta` | Entrar numa pasta |
+| `cd ..` | Voltar uma pasta |
+| `cd ~` | Voltar para a pasta do usuário |
+| `mkdir nome` | Criar pasta |
+| `Remove-Item nome -Recurse` | Apagar pasta (⚠️ cuidado) |
+| `Remove-Item arquivo` | Apagar arquivo (⚠️ cuidado) |
+| `claude` | Abrir o Claude Code |
+| `Ctrl+C` (duas vezes) | Fechar o Claude Code |
+| `Esc` | Parar uma ação em andamento |
+| `Shift+Tab` | Alternar modo de permissão |
+| `Ctrl+Tab` | Completar a frase sugerida no campo |
+| `/clear` | Limpar a conversa |
+| `/compact` | Resumir a conversa |
+| `/init` | Documentar o projeto |
+| `/status` | Ver status da sessão |
+| `/help` | Pedir ajuda |
+| `/login` | Fazer login |
+| `/btw` | Fazer uma pergunta rápida sem interromper |
+| `/add-prompt` | Pedido pontual coringa |
+| `/manual-comandos` | Gerar o manual em Markdown |
+| `/manual-html` | Converter o manual em HTML |
+| `/doc-setup` | Gerar o README do setup pessoal |
+| `/todo-app` | Criar o projeto de teste (to-do list) |
+| `/eng-prompt` | Ativar protocolo de engenheiro de prompt |
+| `/consultor-financeiro` | Ativar revisão financeira/contábil |
+| `/advogado-lgpd` | Ativar revisão de conformidade LGPD |
+| `/marketing` | Ativar apoio de marketing/copywriting |
+| `/revisor-qa` | Ativar revisão crítica de código (QA) |
+| `/recrutador-tecnico` | Ativar avaliação de currículo/portfólio |
+| `inicialize um repositório Git nesta pasta` | Inicializar um repositório Git |
+| `verifique se esta pasta já é um repositório Git` | Verificar se a pasta já é um repositório Git |
+| `git status` | Ver status do Git |
+| `gh auth login` | Login no GitHub |
+| `crie um repositório no GitHub para este projeto e envie o código (push)` | Criar repositório no GitHub e enviar código |
