@@ -304,6 +304,7 @@
   /* Tables */
   table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     margin: 12px 0 20px 0;
     font-size: 14px;
@@ -311,6 +312,17 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     overflow: hidden;
+  }
+
+  /* Padrão "Comando/Atalho | O que faz": coluna 1 a 40%, coluna 2 a 60% */
+  table th:nth-child(1),
+  table td:nth-child(1) {
+    width: 40%;
+  }
+
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    width: 60%;
   }
 
   thead tr { background: var(--code-bg); }
@@ -340,7 +352,8 @@
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.9em;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   /* Resumo rápido: colunas proporcionais + quebra de linha para comandos longos */
@@ -361,6 +374,17 @@
   #resumo td code {
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+
+  /* Seção 2.0 Instalação: colunas 35/65 */
+  #instalacao th:nth-child(1),
+  #instalacao td:nth-child(1) {
+    width: 35%;
+  }
+
+  #instalacao th:nth-child(2),
+  #instalacao td:nth-child(2) {
+    width: 65%;
   }
 
   /* Warning callout */
