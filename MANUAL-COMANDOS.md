@@ -11,6 +11,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    2.0 Instalação
    2.1 Comandos slash nativos
    2.2 Comandos personalizados
+   2.3 Git e GitHub
 3. Git e GitHub
 4. Notepad
    4.1 Atalhos e Comandos
@@ -153,6 +154,10 @@ Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite
 | `/marketing` | Ativa apoio de copywriting e marketing. |
 | `/revisor-qa` | Ativa revisão crítica de código como QA. |
 | `/recrutador-tecnico` | Ativa avaliação honesta de currículo/portfólio como recrutador técnico. |
+
+### 2.3 Git e GitHub
+
+**Observação:** o Claude Code não fica travado na pasta onde a sessão foi aberta. Ao pedir para ele fazer commit e push (em linguagem natural, sem precisar digitar comandos git manualmente), ele investiga sozinho o ambiente — busca arquivos, identifica o repositório correto dentro da árvore de pastas — e executa `git add`, `commit` e `push` corretamente, mesmo que a sessão tenha sido iniciada numa pasta pai, fora do repositório em si.
 
 ---
 
