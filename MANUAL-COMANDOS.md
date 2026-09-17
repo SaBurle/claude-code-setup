@@ -8,6 +8,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    1.1 Navegação de pastas
    1.2 Interagir com o Claude Code
 2. Claude Code
+   2.0 Instalação
    2.1 Comandos slash nativos
    2.2 Comandos personalizados
 3. Git e GitHub
@@ -73,6 +74,27 @@ Preciso de uma função que valide CPF
 ---
 
 ## 2. Claude Code
+
+### 2.0 Instalação
+
+Passo a passo para instalar o Claude Code do zero no Windows, via PowerShell, até a primeira sessão autenticada.
+
+| Comando | O que faz |
+|---|---|
+| `irm https://claude.ai/install.ps1 \| iex` | Instala o Claude Code usando o instalador nativo. |
+| `powershell -ExecutionPolicy Bypass -File install.ps1` | Alternativa caso a política de execução do PowerShell bloqueie o script do instalador. |
+| `[Environment]::SetEnvironmentVariable("PATH", $env:PATH + ";C:\Users\<usuário>\.local\bin", "User")` | Adiciona o Claude Code ao PATH, caso o instalador avise "not in your PATH". Troque `<usuário>` pelo seu nome de usuário do Windows. |
+| `claude --version` | Verifica se a instalação funcionou. Rode em um terminal novo. |
+| `claude doctor` | Roda o diagnóstico completo da instalação. |
+| `claude auth login` | Autentica sua conta Claude/Anthropic. |
+| `claude` | Inicia a primeira sessão interativa, já autenticada. |
+
+**Importante:** depois de mexer no PATH (passo do `[Environment]::SetEnvironmentVariable`), feche e reabra o terminal antes de continuar — a mudança só é reconhecida numa sessão nova.
+
+**Checklist final (rodando `claude doctor`):**
+- `Running: native`
+- Path correto
+- `Remote Control: signed in`
 
 ### 2.1 Comandos slash nativos
 

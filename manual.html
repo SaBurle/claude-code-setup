@@ -523,6 +523,7 @@
         <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Claude Code">▸</button>
       </div>
       <ul class="nav-sublist" hidden>
+        <li><a href="#instalacao" class="nav-link sub-link">2.0 Instalação</a></li>
         <li><a href="#comandos-nativos" class="nav-link sub-link">2.1 Comandos slash nativos</a></li>
         <li><a href="#comandos-personalizados" class="nav-link sub-link">2.2 Comandos personalizados</a></li>
       </ul>
@@ -661,6 +662,56 @@
 
   <section id="claude-code">
     <h2>2. Claude Code</h2>
+
+    <section id="instalacao">
+    <h3>2.0 Instalação</h3>
+    <p>Passo a passo para instalar o Claude Code do zero no Windows, via PowerShell, até a primeira sessão autenticada.</p>
+
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">irm https://claude.ai/install.ps1 | iex</code><button class="copy-icon-btn" data-code="irm https://claude.ai/install.ps1 | iex" title="Copiar comando" aria-label="Copiar comando irm https://claude.ai/install.ps1 | iex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Instala o Claude Code usando o instalador nativo.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">powershell -ExecutionPolicy Bypass -File install.ps1</code><button class="copy-icon-btn" data-code="powershell -ExecutionPolicy Bypass -File install.ps1" title="Copiar comando" aria-label="Copiar comando powershell -ExecutionPolicy Bypass -File install.ps1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Alternativa caso a política de execução do PowerShell bloqueie o script do instalador.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">[Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $env:PATH + &quot;;C:\Users\&lt;usuário&gt;\.local\bin&quot;, &quot;User&quot;)</code><button class="copy-icon-btn" data-code="[Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $env:PATH + &quot;;C:\Users\&lt;usuário&gt;\.local\bin&quot;, &quot;User&quot;)" title="Copiar comando" aria-label="Copiar comando de PATH"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Adiciona o Claude Code ao PATH, caso o instalador avise "not in your PATH". Troque <code class="inline">&lt;usuário&gt;</code> pelo seu nome de usuário do Windows.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">claude --version</code><button class="copy-icon-btn" data-code="claude --version" title="Copiar comando" aria-label="Copiar comando claude --version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Verifica se a instalação funcionou. Rode em um terminal novo.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">claude doctor</code><button class="copy-icon-btn" data-code="claude doctor" title="Copiar comando" aria-label="Copiar comando claude doctor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Roda o diagnóstico completo da instalação.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">claude auth login</code><button class="copy-icon-btn" data-code="claude auth login" title="Copiar comando" aria-label="Copiar comando claude auth login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Autentica sua conta Claude/Anthropic.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">claude</code><button class="copy-icon-btn" data-code="claude" title="Copiar comando" aria-label="Copiar comando claude"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Inicia a primeira sessão interativa, já autenticada.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="warn"><strong>Importante:</strong> depois de mexer no PATH (linha do <code class="inline">[Environment]::SetEnvironmentVariable</code>), feche e reabra o terminal antes de continuar — a mudança só é reconhecida numa sessão nova.</div>
+
+    <h4>Checklist final (rodando <code class="inline">claude doctor</code>)</h4>
+    <ul>
+      <li><code class="inline">Running: native</code></li>
+      <li>Path correto</li>
+      <li><code class="inline">Remote Control: signed in</code></li>
+    </ul>
+    </section>
 
     <section id="comandos-nativos">
     <h3>2.1 Comandos slash nativos</h3>
@@ -905,6 +956,7 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
         <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Claude Code">▸</button>
       </div>
       <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#instalacao" role="menuitem" class="sub-link">2.0 Instalação</a></li>
         <li role="none"><a href="#comandos-nativos" role="menuitem" class="sub-link">2.1 Comandos slash nativos</a></li>
         <li role="none"><a href="#comandos-personalizados" role="menuitem" class="sub-link">2.2 Comandos personalizados</a></li>
       </ul>
