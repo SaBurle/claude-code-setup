@@ -13,6 +13,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    2.2 Comandos personalizados
    2.3 Git e GitHub
 3. Git e GitHub
+   3.1 Checklist de fim de sessão
 4. Notepad
    4.1 Atalhos e Comandos
 5. E-mail
@@ -172,6 +173,16 @@ Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite
 | `crie um repositório no GitHub para este projeto e envie o código (push)` | Pedido em linguagem natural (depois de autenticada com `gh auth login`): o Claude usa os comandos do Git e do `gh` para criar o repositório remoto no GitHub, conectar a pasta local a ele e enviar (`git push`) os arquivos. |
 
 **Dica de segurança:** ações como criar repositórios públicos ou dar push costumam pedir sua confirmação antes de executar — é normal e esperado que o Claude pergunte antes de fazer algo que afeta o GitHub de verdade.
+
+### 3.1 Checklist de fim de sessão
+
+| Comando | O que faz |
+|---|---|
+| `git status` | Verifica se há arquivos modificados ou não rastreados. |
+| `git add .` | Adiciona as alterações pendentes. |
+| `git commit -m "mensagem"` | Registra o commit. |
+| `git push` | Envia para o repositório remoto no GitHub. |
+| `Everything up-to-date` | Confirme o retorno: essa mensagem ou um push bem-sucedido. |
 
 ---
 

@@ -553,7 +553,15 @@
         <li><a href="#claude-code-git" class="nav-link sub-link">2.3 Git e GitHub</a></li>
       </ul>
     </li>
-    <li><a href="#git-github" class="nav-link">3. Git e GitHub</a></li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#git-github" class="nav-link">3. Git e GitHub</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Git e GitHub">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#git-checklist" class="nav-link sub-link">3.1 Checklist de fim de sessão</a></li>
+      </ul>
+    </li>
     <li class="nav-group">
       <div class="nav-row">
         <a href="#notepad" class="nav-link">4. Notepad</a>
@@ -831,6 +839,37 @@
       </tbody>
     </table>
     <div class="warn"><strong>Dica de segurança:</strong> ações como criar repositórios públicos ou dar push costumam pedir sua confirmação antes de executar — é normal e esperado que o Claude pergunte antes de fazer algo que afeta o GitHub de verdade.</div>
+
+    <section id="git-checklist">
+    <h3>3.1 Checklist de fim de sessão</h3>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">git status</code><button class="copy-icon-btn" data-code="git status" title="Copiar comando" aria-label="Copiar comando git status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Verifica se há arquivos modificados ou não rastreados.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git add .</code><button class="copy-icon-btn" data-code="git add ." title="Copiar comando" aria-label="Copiar comando git add ."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Adiciona as alterações pendentes.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git commit -m "mensagem"</code><button class="copy-icon-btn" data-code="git commit -m &quot;mensagem&quot;" title="Copiar comando" aria-label="Copiar comando git commit -m mensagem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Registra o commit.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git push</code><button class="copy-icon-btn" data-code="git push" title="Copiar comando" aria-label="Copiar comando git push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Envia para o repositório remoto no GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Everything up-to-date</code></td>
+          <td>Confirme o retorno: essa mensagem ou um push bem-sucedido.</td>
+        </tr>
+      </tbody>
+    </table>
+    </section>
   </section>
 
   <section id="notepad">
@@ -992,7 +1031,15 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
         <li role="none"><a href="#claude-code-git" role="menuitem" class="sub-link">2.3 Git e GitHub</a></li>
       </ul>
     </li>
-    <li role="none"><a href="#git-github" role="menuitem">3. Git e GitHub</a></li>
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#git-github" role="menuitem">3. Git e GitHub</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Git e GitHub">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#git-checklist" role="menuitem" class="sub-link">3.1 Checklist de fim de sessão</a></li>
+      </ul>
+    </li>
     <li role="none" class="nav-group">
       <div class="nav-row">
         <a href="#notepad" role="menuitem">4. Notepad</a>
