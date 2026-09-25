@@ -313,3 +313,6 @@ claude
 | `git status` | Ver status do Git |
 | `gh auth login` | Login no GitHub |
 | `crie um repositório no GitHub para este projeto e envie o código (push)` | Criar repositório no GitHub e enviar código |
+| `git add .` | Adicionar as alterações pendentes |
+| `git commit -m "mensagem"` | Registrar um commit |
+| `git push` | Enviar para o GitHub (fim de sessão) |
