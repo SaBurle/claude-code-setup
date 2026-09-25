@@ -580,8 +580,17 @@
         <li><a href="#plus-addressing" class="nav-link sub-link">5.1 Plus Addressing</a></li>
       </ul>
     </li>
-    <li><a href="#meus-caminhos" class="nav-link">6. Meus Caminhos</a></li>
-    <li><a href="#resumo" class="nav-link">7. Resumo rápido</a></li>
+    <li class="nav-group">
+      <div class="nav-row">
+        <a href="#glossario" class="nav-link">6. Glossário Técnico</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Glossário Técnico">▸</button>
+      </div>
+      <ul class="nav-sublist" hidden>
+        <li><a href="#aws-cloud" class="nav-link sub-link">6.1 AWS/Cloud</a></li>
+      </ul>
+    </li>
+    <li><a href="#meus-caminhos" class="nav-link">7. Meus Caminhos</a></li>
+    <li><a href="#resumo" class="nav-link">8. Resumo rápido</a></li>
   </ul>
 </nav>
 
@@ -930,8 +939,43 @@
     </section>
   </section>
 
+  <section id="glossario">
+    <h2>6. Glossário Técnico</h2>
+
+    <section id="aws-cloud">
+    <h3>6.1 AWS/Cloud</h3>
+    <table>
+      <thead>
+        <tr><th>Termo</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">Amazon ECS (Elastic Container Service)</code><button class="copy-icon-btn" data-code="Amazon ECS (Elastic Container Service)" title="Copiar termo" aria-label="Copiar termo Amazon ECS (Elastic Container Service)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Orquestração de containers na AWS — usado para prototipagem de IA com LLMs, agentes e RAG em produção.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">AWS Lambda</code><button class="copy-icon-btn" data-code="AWS Lambda" title="Copiar termo" aria-label="Copiar termo AWS Lambda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Computação serverless — roda função sob demanda, sem orquestrar containers.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">AWS Storage Gateway</code><button class="copy-icon-btn" data-code="AWS Storage Gateway" title="Copiar termo" aria-label="Copiar termo AWS Storage Gateway"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Armazenamento híbrido — conecta ambiente on-premises à nuvem.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Amazon VPC</code><button class="copy-icon-btn" data-code="Amazon VPC" title="Copiar termo" aria-label="Copiar termo Amazon VPC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Rede virtual isolada — organiza e isola tráfego de rede, não orquestra nada.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">AWS IAM</code><button class="copy-icon-btn" data-code="AWS IAM" title="Copiar termo" aria-label="Copiar termo AWS IAM"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Gerenciamento de identidade e permissões de acesso.</td>
+        </tr>
+      </tbody>
+    </table>
+    </section>
+  </section>
+
   <section id="meus-caminhos">
-    <h2>6. Meus Caminhos</h2>
+    <h2>7. Meus Caminhos</h2>
 
     <h3>Organização de pastas</h3>
     <p>Toda documentação/manual pessoal fica direto na pasta <code class="inline">Claude</code>.</p>
@@ -957,7 +1001,7 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
   </section>
 
   <section id="resumo">
-    <h2>7. Resumo rápido (cola de bolso)</h2>
+    <h2>8. Resumo rápido (cola de bolso)</h2>
     <table>
       <thead>
         <tr><th>Comando</th><th>Quero...</th></tr>
@@ -1061,8 +1105,17 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
         <li role="none"><a href="#plus-addressing" role="menuitem" class="sub-link">5.1 Plus Addressing</a></li>
       </ul>
     </li>
-    <li role="none"><a href="#meus-caminhos" role="menuitem">6. Meus Caminhos</a></li>
-    <li role="none"><a href="#resumo" role="menuitem">7. Resumo rápido</a></li>
+    <li role="none" class="nav-group">
+      <div class="nav-row">
+        <a href="#glossario" role="menuitem">6. Glossário Técnico</a>
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Expandir subseções de Glossário Técnico">▸</button>
+      </div>
+      <ul class="nav-sublist" role="none" hidden>
+        <li role="none"><a href="#aws-cloud" role="menuitem" class="sub-link">6.1 AWS/Cloud</a></li>
+      </ul>
+    </li>
+    <li role="none"><a href="#meus-caminhos" role="menuitem">7. Meus Caminhos</a></li>
+    <li role="none"><a href="#resumo" role="menuitem">8. Resumo rápido</a></li>
     <li class="fab-divider" role="none"></li>
     <li role="none"><a href="#top" id="fabBackToTop" class="fab-top-link" role="menuitem">↑ Voltar ao topo</a></li>
   </ul>

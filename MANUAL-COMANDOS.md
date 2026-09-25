@@ -18,8 +18,10 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    4.1 Atalhos e Comandos
 5. E-mail
    5.1 Plus Addressing
-6. Meus Caminhos
-7. Resumo rápido (cola de bolso)
+6. Glossário Técnico
+   6.1 AWS/Cloud
+7. Meus Caminhos
+8. Resumo rápido (cola de bolso)
 
 ---
 
@@ -234,7 +236,21 @@ Use este mesmo truque manualmente (`seuemail+teste2@gmail.com`, `seuemail+bugX@g
 
 ---
 
-## 6. Meus Caminhos
+## 6. Glossário Técnico
+
+### 6.1 AWS/Cloud
+
+| Termo | O que faz |
+|---|---|
+| `Amazon ECS (Elastic Container Service)` | Orquestração de containers na AWS — usado para prototipagem de IA com LLMs, agentes e RAG em produção. |
+| `AWS Lambda` | Computação serverless — roda função sob demanda, sem orquestrar containers. |
+| `AWS Storage Gateway` | Armazenamento híbrido — conecta ambiente on-premises à nuvem. |
+| `Amazon VPC` | Rede virtual isolada — organiza e isola tráfego de rede, não orquestra nada. |
+| `AWS IAM` | Gerenciamento de identidade e permissões de acesso. |
+
+---
+
+## 7. Meus Caminhos
 
 ### Organização de pastas
 
@@ -273,7 +289,7 @@ claude
 
 ---
 
-## 7. Resumo rápido (cola de bolso)
+## 8. Resumo rápido (cola de bolso)
 
 | Comando | Quero... |
 |---|---|
