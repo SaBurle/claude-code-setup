@@ -248,7 +248,7 @@ claude
 ### Se quiser usar na pasta de manuais
 
 ```powershell
-cd C:\Users\Samara\Claude
+cd C:\Users\Samara\Claude\Projetos\Manual
 claude
 ```
 
