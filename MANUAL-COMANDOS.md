@@ -254,7 +254,7 @@ Use este mesmo truque manualmente (`seuemail+teste2@gmail.com`, `seuemail+bugX@g
 
 ### Organização de pastas
 
-Toda documentação/manual pessoal fica direto na pasta `Claude`.
+Toda documentação/manual pessoal fica na pasta `Claude\Projetos\Manual` (repositório `claude-code-setup`).
 Todo projeto novo (com código e seu próprio git) deve ser criado dentro de uma subpasta `Projetos`.
 
 ### Exemplo para criar um projeto novo
