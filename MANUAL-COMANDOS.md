@@ -7,11 +7,14 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
 1. PowerShell
    1.1 Navegação de pastas
    1.2 Interagir com o Claude Code
+   1.3 Compactar pasta em .zip (Compress-Archive)
 2. Claude Code
    2.0 Instalação
    2.1 Comandos slash nativos
    2.2 Comandos personalizados
    2.3 Git e GitHub
+   2.4 Enviando prompts longos (método prompt.md)
+   2.5 Símbolos @ e !
 3. Git e GitHub
    3.1 Checklist de fim de sessão
 4. Notepad
@@ -74,6 +77,18 @@ Preciso de uma função que valide CPF
 | `Esc` | Se o Claude estiver executando algo, interrompe a ação em andamento sem fechar a sessão inteira. |
 | `Shift+Tab` | Alterna o modo de permissão da conversa (negar / aprovar automaticamente / aprovar a cada turno). |
 | `Ctrl+Tab` | Completa a frase sugerida no campo, para você enviar sem precisar redigitar. |
+
+### 1.3 Compactar pasta em .zip (Compress-Archive)
+
+Quando o caminho da pasta tem espaços ou caracteres especiais, coloque o caminho entre aspas duplas.
+
+| Comando | O que faz |
+|---|---|
+| `Compress-Archive -Path "C:\caminho\da\pasta\*" -DestinationPath "C:\caminho\da\pasta.zip" -Force` | Opção 1 (recomendada): compacta só o conteúdo de dentro da pasta, sem subpasta no .zip. |
+| `cd "C:\caminho\da\pasta"` | Opção 2, passo 1: entra na pasta primeiro. |
+| `Compress-Archive -Path * -DestinationPath .\projeto.zip -Force` | Opção 2, passo 2: compacta tudo da pasta atual. |
+
+**Dica:** o `-Force` sobrescreve o .zip caso já exista um com esse nome.
 
 ---
 
@@ -161,6 +176,67 @@ Escreva ou substitua o prompt dentro do arquivo, salve, feche o Notepad e digite
 ### 2.3 Git e GitHub
 
 **Observação:** o Claude Code não fica travado na pasta onde a sessão foi aberta. Ao pedir para ele fazer commit e push (em linguagem natural, sem precisar digitar comandos git manualmente), ele investiga sozinho o ambiente — busca arquivos, identifica o repositório correto dentro da árvore de pastas — e executa `git add`, `commit` e `push` corretamente, mesmo que a sessão tenha sido iniciada numa pasta pai, fora do repositório em si.
+
+### 2.4 Enviando prompts longos (método prompt.md)
+
+No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou cortar o texto. A solução é usar um arquivo `prompt.md` na pasta do projeto.
+
+| Comando | O que faz |
+|---|---|
+| `! notepad prompt.md` | Abre o `prompt.md` no Notepad sem sair do Claude Code. O Claude Code fica "esperando" até o Notepad ser fechado; é normal. |
+| `notepad prompt.md` | Mesma coisa, rodado numa janela do PowerShell, na pasta do projeto. |
+| `@prompt.md siga as instruções deste arquivo` | Envia o conteúdo do `prompt.md`, lido na hora (sempre a versão mais recente salva). |
+
+**Fluxo:**
+1. Abrir o `prompt.md`.
+2. Apagar o conteúdo antigo.
+3. Colar o novo prompt.
+4. Salvar (`Ctrl+S`).
+5. Fechar o Notepad.
+6. Enviar `@prompt.md siga as instruções deste arquivo`.
+
+**Observações:**
+- O `prompt.md` deve estar no `.gitignore` do projeto (é rascunho e não vai para o GitHub).
+- Substitui o uso do `/add-prompt`: comandos personalizados editados com a sessão aberta podem rodar a versão antiga até o Claude Code ser reiniciado.
+- O `!` no início de uma mensagem faz o Claude Code rodar o comando direto no terminal.
+
+### 2.5 Símbolos @ e !
+
+#### 1. `@` = "leia este arquivo"
+
+- Ao escrever `@` + nome do arquivo, o Claude Code lê o conteúdo naquele momento e trata como parte da mensagem.
+- Funciona com qualquer arquivo do projeto (ex.: `@CLAUDE.md`, `@src/App.tsx`).
+- Uso: mandar textos longos sem colar no terminal, ou apontar exatamente qual arquivo ele deve olhar.
+
+| Comando | O que faz |
+|---|---|
+| `@prompt.md siga as instruções deste arquivo` | Executa o prompt salvo no arquivo. |
+| `@CLAUDE.md` | Faz ele reler as regras do projeto. |
+
+#### 2. `!` = "rode este comando no terminal"
+
+- Uma mensagem que começa com `!` não vai para o Claude como pedido: é executada direto no terminal, como no PowerShell.
+- O Claude Code vê o resultado e pode usar na conversa.
+- Uso: rodar algo rápido sem sair do Claude Code, ou passar por um bloqueio do modo automático (ex.: push, criar repositório), já que quem roda é a usuária.
+
+| Comando | O que faz |
+|---|---|
+| `! git push origin main` | Envia o código ao GitHub. |
+| `! git push -u origin main` | Primeiro envio para um repositório novo (o `-u` liga a branch local à do GitHub). |
+| `! notepad prompt.md` | Abre o arquivo no Notepad. |
+| `! dir` | Lista os arquivos da pasta. |
+| `! gh repo create SaBurle/NomeDoRepo --private` | Cria um repositório novo e privado no GitHub. |
+| `! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git` | Aponta o projeto para outro repositório do GitHub. |
+| `! git remote -v` | Mostra para qual repositório o projeto está apontando. |
+
+#### Resumo
+
+| Símbolo | Significado | Exemplo |
+|---|---|---|
+| `@` | Leia este arquivo | `@prompt.md siga as instruções` |
+| `!` | Rode este comando | `! git push origin main` |
+
+**⚠️ Aviso:** com `!`, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.
 
 ---
 

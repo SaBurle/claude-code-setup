@@ -539,6 +539,7 @@
       <ul class="nav-sublist" hidden>
         <li><a href="#navegacao" class="nav-link sub-link">1.1 Navegação de pastas</a></li>
         <li><a href="#interagir-claude" class="nav-link sub-link">1.2 Interagir com o Claude Code</a></li>
+        <li><a href="#compactar-zip" class="nav-link sub-link">1.3 Compactar pasta em .zip</a></li>
       </ul>
     </li>
     <li class="nav-group">
@@ -551,6 +552,8 @@
         <li><a href="#comandos-nativos" class="nav-link sub-link">2.1 Comandos slash nativos</a></li>
         <li><a href="#comandos-personalizados" class="nav-link sub-link">2.2 Comandos personalizados</a></li>
         <li><a href="#claude-code-git" class="nav-link sub-link">2.3 Git e GitHub</a></li>
+        <li><a href="#prompt-md" class="nav-link sub-link">2.4 Enviando prompts longos</a></li>
+        <li><a href="#simbolos" class="nav-link sub-link">2.5 Símbolos @ e !</a></li>
       </ul>
     </li>
     <li class="nav-group">
@@ -700,6 +703,33 @@
       </tbody>
     </table>
     </section>
+
+    <section id="compactar-zip">
+    <h3>1.3 Compactar pasta em .zip (Compress-Archive)</h3>
+    <p>Quando o caminho da pasta tem espaços ou caracteres especiais, coloque o caminho entre aspas duplas.</p>
+
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">Compress-Archive -Path &quot;C:\caminho\da\pasta\*&quot; -DestinationPath &quot;C:\caminho\da\pasta.zip&quot; -Force</code><button class="copy-icon-btn" data-code="Compress-Archive -Path &quot;C:\caminho\da\pasta\*&quot; -DestinationPath &quot;C:\caminho\da\pasta.zip&quot; -Force" title="Copiar comando" aria-label="Copiar comando Compress-Archive -Path &quot;C:\caminho\da\pasta\*&quot; -DestinationPath &quot;C:\caminho\da\pasta.zip&quot; -Force"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Opção 1 (recomendada): compacta só o conteúdo de dentro da pasta, sem subpasta no .zip.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">cd &quot;C:\caminho\da\pasta&quot;</code><button class="copy-icon-btn" data-code="cd &quot;C:\caminho\da\pasta&quot;" title="Copiar comando" aria-label="Copiar comando cd &quot;C:\caminho\da\pasta&quot;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Opção 2, passo 1: entra na pasta primeiro.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">Compress-Archive -Path * -DestinationPath .\projeto.zip -Force</code><button class="copy-icon-btn" data-code="Compress-Archive -Path * -DestinationPath .\projeto.zip -Force" title="Copiar comando" aria-label="Copiar comando Compress-Archive -Path * -DestinationPath .\projeto.zip -Force"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Opção 2, passo 2: compacta tudo da pasta atual.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="warn"><strong>Dica:</strong> o <code class="inline">-Force</code> sobrescreve o .zip caso já exista um com esse nome.</div>
+    </section>
   </section>
 
   <section id="claude-code">
@@ -814,6 +844,129 @@
     <section id="claude-code-git">
     <h3>2.3 Git e GitHub</h3>
     <p><strong>Observação:</strong> o Claude Code não fica travado na pasta onde a sessão foi aberta. Ao pedir para ele fazer commit e push (em linguagem natural, sem precisar digitar comandos git manualmente), ele investiga sozinho o ambiente — busca arquivos, identifica o repositório correto dentro da árvore de pastas — e executa <code class="inline">git add</code>, <code class="inline">commit</code> e <code class="inline">push</code> corretamente, mesmo que a sessão tenha sido iniciada numa pasta pai, fora do repositório em si.</p>
+    </section>
+
+    <section id="prompt-md">
+    <h3>2.4 Enviando prompts longos (método prompt.md)</h3>
+    <p>No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou cortar o texto. A solução é usar um arquivo <code class="inline">prompt.md</code> na pasta do projeto.</p>
+
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">! notepad prompt.md</code><button class="copy-icon-btn" data-code="! notepad prompt.md" title="Copiar comando" aria-label="Copiar comando ! notepad prompt.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Abre o <code class="inline">prompt.md</code> no Notepad sem sair do Claude Code. O Claude Code fica "esperando" até o Notepad ser fechado; é normal.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">notepad prompt.md</code><button class="copy-icon-btn" data-code="notepad prompt.md" title="Copiar comando" aria-label="Copiar comando notepad prompt.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mesma coisa, rodado numa janela do PowerShell, na pasta do projeto.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">@prompt.md siga as instruções deste arquivo</code><button class="copy-icon-btn" data-code="@prompt.md siga as instruções deste arquivo" title="Copiar comando" aria-label="Copiar comando @prompt.md siga as instruções deste arquivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Envia o conteúdo do <code class="inline">prompt.md</code>, lido na hora (sempre a versão mais recente salva).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Fluxo</h4>
+    <ol>
+      <li>Abrir o <code class="inline">prompt.md</code>.</li>
+      <li>Apagar o conteúdo antigo.</li>
+      <li>Colar o novo prompt.</li>
+      <li>Salvar (<code class="inline">Ctrl+S</code>).</li>
+      <li>Fechar o Notepad.</li>
+      <li>Enviar <code class="inline">@prompt.md siga as instruções deste arquivo</code>.</li>
+    </ol>
+
+    <h4>Observações</h4>
+    <ul>
+      <li>O <code class="inline">prompt.md</code> deve estar no <code class="inline">.gitignore</code> do projeto (é rascunho e não vai para o GitHub).</li>
+      <li>Substitui o uso do <code class="inline">/add-prompt</code>: comandos personalizados editados com a sessão aberta podem rodar a versão antiga até o Claude Code ser reiniciado.</li>
+      <li>O <code class="inline">!</code> no início de uma mensagem faz o Claude Code rodar o comando direto no terminal.</li>
+    </ul>
+    </section>
+
+    <section id="simbolos">
+    <h3>2.5 Símbolos @ e !</h3>
+
+    <h4>1. <code class="inline">@</code> = "leia este arquivo"</h4>
+    <ul>
+      <li>Ao escrever <code class="inline">@</code> + nome do arquivo, o Claude Code lê o conteúdo naquele momento e trata como parte da mensagem.</li>
+      <li>Funciona com qualquer arquivo do projeto (ex.: <code class="inline">@CLAUDE.md</code>, <code class="inline">@src/App.tsx</code>).</li>
+      <li>Uso: mandar textos longos sem colar no terminal, ou apontar exatamente qual arquivo ele deve olhar.</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">@prompt.md siga as instruções deste arquivo</code><button class="copy-icon-btn" data-code="@prompt.md siga as instruções deste arquivo" title="Copiar comando" aria-label="Copiar comando @prompt.md siga as instruções deste arquivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Executa o prompt salvo no arquivo.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">@CLAUDE.md</code><button class="copy-icon-btn" data-code="@CLAUDE.md" title="Copiar comando" aria-label="Copiar comando @CLAUDE.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Faz ele reler as regras do projeto.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>2. <code class="inline">!</code> = "rode este comando no terminal"</h4>
+    <ul>
+      <li>Uma mensagem que começa com <code class="inline">!</code> não vai para o Claude como pedido: é executada direto no terminal, como no PowerShell.</li>
+      <li>O Claude Code vê o resultado e pode usar na conversa.</li>
+      <li>Uso: rodar algo rápido sem sair do Claude Code, ou passar por um bloqueio do modo automático (ex.: push, criar repositório), já que quem roda é a usuária.</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">! git push origin main</code><button class="copy-icon-btn" data-code="! git push origin main" title="Copiar comando" aria-label="Copiar comando ! git push origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Envia o código ao GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! git push -u origin main</code><button class="copy-icon-btn" data-code="! git push -u origin main" title="Copiar comando" aria-label="Copiar comando ! git push -u origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Primeiro envio para um repositório novo (o <code class="inline">-u</code> liga a branch local à do GitHub).</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! notepad prompt.md</code><button class="copy-icon-btn" data-code="! notepad prompt.md" title="Copiar comando" aria-label="Copiar comando ! notepad prompt.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Abre o arquivo no Notepad.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! dir</code><button class="copy-icon-btn" data-code="! dir" title="Copiar comando" aria-label="Copiar comando ! dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Lista os arquivos da pasta.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! gh repo create SaBurle/NomeDoRepo --private</code><button class="copy-icon-btn" data-code="! gh repo create SaBurle/NomeDoRepo --private" title="Copiar comando" aria-label="Copiar comando ! gh repo create SaBurle/NomeDoRepo --private"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Cria um repositório novo e privado no GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git</code><button class="copy-icon-btn" data-code="! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git" title="Copiar comando" aria-label="Copiar comando ! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Aponta o projeto para outro repositório do GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">! git remote -v</code><button class="copy-icon-btn" data-code="! git remote -v" title="Copiar comando" aria-label="Copiar comando ! git remote -v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mostra para qual repositório o projeto está apontando.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>Resumo</h4>
+    <table>
+      <thead>
+        <tr><th>Símbolo</th><th>Significado</th><th>Exemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="cmd-dark">@</code></td><td>Leia este arquivo</td><td><code class="inline">@prompt.md siga as instruções</code></td></tr>
+        <tr><td><code class="cmd-dark">!</code></td><td>Rode este comando</td><td><code class="inline">! git push origin main</code></td></tr>
+      </tbody>
+    </table>
+
+    <div class="warn"><strong>⚠️ Aviso:</strong> com <code class="inline">!</code>, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.</div>
     </section>
   </section>
 
