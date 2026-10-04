@@ -221,20 +221,22 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 
 | Comando | O que faz |
 |---|---|
-| `! git push origin main` | Envia o código ao GitHub. |
-| `! git push -u origin main` | Primeiro envio para um repositório novo (o `-u` liga a branch local à do GitHub). |
+| `! git push` | Envia o código ao GitHub (para a branch já ligada com `-u`). |
+| `! git push -u origin main` | Primeiro envio para um repositório novo (o `-u` liga a branch local à do GitHub). Troque `main` por `master` se for o nome da sua branch. |
 | `! notepad prompt.md` | Abre o arquivo no Notepad. |
 | `! dir` | Lista os arquivos da pasta. |
 | `! gh repo create SaBurle/NomeDoRepo --private` | Cria um repositório novo e privado no GitHub. |
 | `! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git` | Aponta o projeto para outro repositório do GitHub. |
 | `! git remote -v` | Mostra para qual repositório o projeto está apontando. |
 
+**Observação sobre a branch:** o nome da branch pode ser `main` ou `master`, dependendo do repositório. Para conferir, rode `git branch` (a branch atual aparece com `*`). Depois do primeiro envio com `-u`, basta `! git push`, que funciona em qualquer branch.
+
 #### Resumo
 
 | Símbolo | Significado | Exemplo |
 |---|---|---|
 | `@` | Leia este arquivo | `@prompt.md siga as instruções` |
-| `!` | Rode este comando | `! git push origin main` |
+| `!` | Rode este comando | `! git push` |
 
 **⚠️ Aviso:** com `!`, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.
 

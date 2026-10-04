@@ -925,12 +925,12 @@
       </thead>
       <tbody>
         <tr>
-          <td><code class="cmd-dark">! git push origin main</code><button class="copy-icon-btn" data-code="! git push origin main" title="Copiar comando" aria-label="Copiar comando ! git push origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Envia o código ao GitHub.</td>
+          <td><code class="cmd-dark">! git push</code><button class="copy-icon-btn" data-code="! git push" title="Copiar comando" aria-label="Copiar comando ! git push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Envia o código ao GitHub (para a branch já ligada com <code class="inline">-u</code>).</td>
         </tr>
         <tr>
           <td><code class="cmd-dark">! git push -u origin main</code><button class="copy-icon-btn" data-code="! git push -u origin main" title="Copiar comando" aria-label="Copiar comando ! git push -u origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Primeiro envio para um repositório novo (o <code class="inline">-u</code> liga a branch local à do GitHub).</td>
+          <td>Primeiro envio para um repositório novo (o <code class="inline">-u</code> liga a branch local à do GitHub). Troque <code class="inline">main</code> por <code class="inline">master</code> se for o nome da sua branch.</td>
         </tr>
         <tr>
           <td><code class="cmd-dark">! notepad prompt.md</code><button class="copy-icon-btn" data-code="! notepad prompt.md" title="Copiar comando" aria-label="Copiar comando ! notepad prompt.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
@@ -955,6 +955,8 @@
       </tbody>
     </table>
 
+    <p><strong>Observação sobre a branch:</strong> o nome da branch pode ser <code class="inline">main</code> ou <code class="inline">master</code>, dependendo do repositório. Para conferir, rode <code class="inline">git branch</code> (a branch atual aparece com <code class="inline">*</code>). Depois do primeiro envio com <code class="inline">-u</code>, basta <code class="inline">! git push</code>, que funciona em qualquer branch.</p>
+
     <h4>Resumo</h4>
     <table>
       <thead>
@@ -962,7 +964,7 @@
       </thead>
       <tbody>
         <tr><td><code class="cmd-dark">@</code></td><td>Leia este arquivo</td><td><code class="inline">@prompt.md siga as instruções</code></td></tr>
-        <tr><td><code class="cmd-dark">!</code></td><td>Rode este comando</td><td><code class="inline">! git push origin main</code></td></tr>
+        <tr><td><code class="cmd-dark">!</code></td><td>Rode este comando</td><td><code class="inline">! git push</code></td></tr>
       </tbody>
     </table>
 
