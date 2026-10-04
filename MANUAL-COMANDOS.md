@@ -14,7 +14,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    2.2 Comandos personalizados
    2.3 Git e GitHub
    2.4 Enviando prompts longos (método prompt.md)
-   2.5 Símbolos @ e !
+   2.5 Símbolos
 3. Git e GitHub
    3.1 Checklist de fim de sessão
 4. Notepad
@@ -200,24 +200,14 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 - Substitui o uso do `/add-prompt`: comandos personalizados editados com a sessão aberta podem rodar a versão antiga até o Claude Code ser reiniciado.
 - O `!` no início de uma mensagem faz o Claude Code rodar o comando direto no terminal.
 
-### 2.5 Símbolos @ e !
+### 2.5 Símbolos
 
-#### 1. `@` = "leia este arquivo"
-
-- Ao escrever `@` + nome do arquivo, o Claude Code lê o conteúdo naquele momento e trata como parte da mensagem.
-- Funciona com qualquer arquivo do projeto (ex.: `@CLAUDE.md`, `@src/App.tsx`).
-- Uso: mandar textos longos sem colar no terminal, ou apontar exatamente qual arquivo ele deve olhar.
-
-| Comando | O que faz |
+| Símbolo | Função |
 |---|---|
-| `@prompt.md siga as instruções deste arquivo` | Executa o prompt salvo no arquivo. |
-| `@CLAUDE.md` | Faz ele reler as regras do projeto. |
+| `!` | Roda o comando direto no terminal, sem passar pelo Claude. Ele vê o resultado e pode usá-lo na conversa. Útil para passar por bloqueios do modo automático (ex.: push, criar repositório). |
+| `@` | Lê o arquivo citado na hora e trata o conteúdo como parte da mensagem. Funciona com qualquer arquivo do projeto (ex.: `@CLAUDE.md`, `@src/App.tsx`). Útil para mandar textos longos sem colar no terminal. |
 
-#### 2. `!` = "rode este comando no terminal"
-
-- Uma mensagem que começa com `!` não vai para o Claude como pedido: é executada direto no terminal, como no PowerShell.
-- O Claude Code vê o resultado e pode usar na conversa.
-- Uso: rodar algo rápido sem sair do Claude Code, ou passar por um bloqueio do modo automático (ex.: push, criar repositório), já que quem roda é a usuária.
+#### Exemplos
 
 | Comando | O que faz |
 |---|---|
@@ -225,18 +215,16 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 | `! git push -u origin main` | Primeiro envio para um repositório novo (o `-u` liga a branch local à do GitHub). Troque `main` por `master` se for o nome da sua branch. |
 | `! notepad prompt.md` | Abre o arquivo no Notepad. |
 | `! dir` | Lista os arquivos da pasta. |
+| `! start manual.html` | Abre o `manual.html` no navegador padrão, direto do disco. |
 | `! gh repo create SaBurle/NomeDoRepo --private` | Cria um repositório novo e privado no GitHub. |
 | `! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git` | Aponta o projeto para outro repositório do GitHub. |
 | `! git remote -v` | Mostra para qual repositório o projeto está apontando. |
+| `@prompt.md siga as instruções deste arquivo` | Executa o prompt salvo no arquivo. |
+| `@CLAUDE.md` | Faz ele reler as regras do projeto. |
+
+*Novos símbolos entram no fim da primeira tabela, e seus exemplos entram no fim da segunda, na mesma ordem.*
 
 **Observação sobre a branch:** o nome da branch pode ser `main` ou `master`, dependendo do repositório. Para conferir, rode `git branch` (a branch atual aparece com `*`). Depois do primeiro envio com `-u`, basta `! git push`, que funciona em qualquer branch.
-
-#### Resumo
-
-| Símbolo | Significado | Exemplo |
-|---|---|---|
-| `@` | Leia este arquivo | `@prompt.md siga as instruções` |
-| `!` | Rode este comando | `! git push` |
 
 **⚠️ Aviso:** com `!`, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.
 
