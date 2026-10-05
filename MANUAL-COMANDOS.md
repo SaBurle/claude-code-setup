@@ -254,13 +254,13 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 | `git add .` | Adiciona as alterações pendentes. |
 | `git commit -m "mensagem"` | Registra o commit. |
 | `git push` | Envia para o repositório remoto no GitHub. |
-| `Everything up-to-date` | Confirme o retorno: essa mensagem ou um push bem-sucedido. |
 
 **Como confirmar que o push deu certo**
 
-- `! git status` é o comando que você digita.
-- `master -> master` (ou `main -> main`) é uma linha que o Git mostra na tela depois do push. É só para olhar, não para digitar.
-- O sinal mais confiável é o retorno do `git status`: `up to date with 'origin/master'` e `working tree clean`. Ele aparece mesmo quando o resumo do Claude Code esconde a saída do push.
+- `! git status`: é o comando que você digita. O sinal mais confiável é `up to date with 'origin/master'` e `working tree clean`, que aparece mesmo quando o resumo do Claude Code esconde a saída do push.
+- `master -> master` (ou `main -> main`): linha que o Git mostra na tela depois do push. É só para olhar, não para digitar.
+- `Everything up-to-date`: o Git mostra quando não havia nada novo a enviar, ou quando tudo já tinha sido enviado.
+- `rejected`, `error:` ou `fatal:`: o envio não foi feito. Não repita o comando às cegas: copie a mensagem e peça ajuda.
 
 ### 3.2 Conectar ao GitHub
 
