@@ -19,6 +19,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    3.1 Checklist de fim de sessão
    3.2 Conectar ao GitHub
    3.3 Onde estou? (localizar-se entre repositórios)
+   3.4 Comandos de envio
 4. Notepad
    4.1 Atalhos e Comandos
 5. E-mail
@@ -213,22 +214,14 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 
 #### Exemplos
 
-| Comando | O que faz |
-|---|---|
-| `! git push` | Envia o código ao GitHub (para a branch já ligada com `-u`). |
-| `! git push -u origin main` | Primeiro envio para um repositório novo (o `-u` liga a branch local à do GitHub). Troque `main` por `master` se for o nome da sua branch. |
-| `! notepad prompt.md` | Abre o arquivo no Notepad. |
-| `! dir` | Lista os arquivos da pasta. |
-| `! start manual.html` | Abre o `manual.html` no navegador padrão, direto do disco. |
-| `! gh repo create SaBurle/NomeDoRepo --private` | Cria um repositório novo e privado no GitHub. |
-| `! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git` | Aponta o projeto para outro repositório do GitHub. |
-| `! git remote -v` | Mostra para qual repositório o projeto está apontando. |
-| `@prompt.md siga as instruções deste arquivo` | Executa o prompt salvo no arquivo. |
-| `@CLAUDE.md` | Faz ele reler as regras do projeto. |
+- `! dir`: lista os arquivos da pasta.
+- `! notepad prompt.md`: abre o arquivo no Notepad.
+- `! start manual.html`: abre o manual no navegador.
+- `@prompt.md siga as instruções deste arquivo`: executa o prompt do arquivo.
+- `@CLAUDE.md`: relê as regras do projeto.
+- Os comandos de Git estão na 3.4. Dentro do Claude Code, coloque `!` na frente.
 
-*Novos símbolos entram no fim da primeira tabela, e seus exemplos entram no fim da segunda, na mesma ordem.*
-
-**Observação sobre a branch:** o nome da branch pode ser `main` ou `master`, dependendo do repositório. Para conferir, rode `git branch` (a branch atual aparece com `*`). Depois do primeiro envio com `-u`, basta `! git push`, que funciona em qualquer branch.
+*Novos símbolos entram no fim da primeira tabela, e seus exemplos entram no fim da lista de Exemplos, na mesma ordem.*
 
 **⚠️ Aviso:** com `!`, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.
 
@@ -306,6 +299,33 @@ Ao alternar entre repositórios, estes quatro comandos mostram onde você está 
 
 - Repositório dentro de repositório: rodar `git init` numa pasta que já está dentro de outro repo cria um repo aninhado e confunde os commits. Antes de criar, confira com `git status`.
 - Commit no lugar errado: olhe o `git remote -v` antes de dar push.
+
+### 3.4 Comandos de envio
+
+| Comando | O que faz |
+|---|---|
+| `git push` | Envia o código ao GitHub. |
+| `git push -u origin main` | Primeiro envio de uma branch (`-u` guarda o caminho). |
+| `gh repo create SaBurle/NomeDoRepo --private` | Cria um repositório privado no GitHub. |
+| `git remote set-url origin URL` | Troca o endereço do repositório. |
+| `git remote -v` | Mostra o endereço do repositório. |
+
+Dentro do Claude Code, coloque `!` na frente do comando para rodá-lo direto no terminal (ver 2.5).
+
+**Explicações**
+
+- `git push`: envia ao GitHub os commits da branch em que você está.
+- `git push -u origin main`:
+  - `origin`: apelido do endereço do seu repositório no GitHub.
+  - `main`: a branch enviada. Troque pelo nome da sua (ex.: `b1`, `master`).
+  - `-u`: guarda o caminho. Só na primeira vez de cada branch, depois basta `git push`.
+
+**Exemplos práticos**
+
+- Primeira vez da branch `b1`: `git push -u origin b1`.
+- Depois, estando na `b1`: `git push`.
+- Esqueceu o `-u`: o Git dá erro e mostra o comando certo.
+- O nome da branch pode ser `main` ou `master`, e `git branch` mostra a atual.
 
 ---
 

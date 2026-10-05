@@ -409,27 +409,6 @@
     width: 85%;
   }
 
-  /* Seção 2.5 Símbolos, tabela Exemplos: colunas 56/44 (URL do git remote set-url em 2 linhas, botão de copiar ao lado) */
-  #tabela-exemplos th:nth-child(1),
-  #tabela-exemplos td:nth-child(1) {
-    width: 56%;
-  }
-  #tabela-exemplos th:nth-child(2),
-  #tabela-exemplos td:nth-child(2) {
-    width: 44%;
-  }
-  /* Abaixo de 860px (menu lateral sai da lateral), volta a 40/60 */
-  @media (max-width: 860px) {
-    #tabela-exemplos th:nth-child(1),
-    #tabela-exemplos td:nth-child(1) {
-      width: 40%;
-    }
-    #tabela-exemplos th:nth-child(2),
-    #tabela-exemplos td:nth-child(2) {
-      width: 60%;
-    }
-  }
-
   /* Seção 3.3 Onde estou?: colunas 40/60 (comandos curtos não quebram no meio em tela estreita) */
   #tabela-3-3-onde-estou th:nth-child(1),
   #tabela-3-3-onde-estou td:nth-child(1) {
@@ -631,6 +610,7 @@
         <li><a href="#git-checklist" class="nav-link sub-link">3.1 Checklist de fim de sessão</a></li>
         <li><a href="#git-conectar-repo" class="nav-link sub-link">3.2 Conectar ao GitHub</a></li>
         <li><a href="#git-onde-estou" class="nav-link sub-link">3.3 Onde estou?</a></li>
+        <li><a href="#git-comandos-envio" class="nav-link sub-link">3.4 Comandos de envio</a></li>
       </ul>
     </li>
     <li class="nav-group">
@@ -972,56 +952,15 @@
     </table>
 
     <h4>Exemplos</h4>
-    <table id="tabela-exemplos">
-      <thead>
-        <tr><th>Comando</th><th>O que faz</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code class="cmd-dark">! git push</code><button class="copy-icon-btn" data-code="! git push" title="Copiar comando" aria-label="Copiar comando ! git push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Envia o código ao GitHub (para a branch já ligada com <code class="inline">-u</code>).</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! git push -u origin main</code><button class="copy-icon-btn" data-code="! git push -u origin main" title="Copiar comando" aria-label="Copiar comando ! git push -u origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Primeiro envio para um repositório novo (o <code class="inline">-u</code> liga a branch local à do GitHub). Troque <code class="inline">main</code> por <code class="inline">master</code> se for o nome da sua branch.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! notepad prompt.md</code><button class="copy-icon-btn" data-code="! notepad prompt.md" title="Copiar comando" aria-label="Copiar comando ! notepad prompt.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Abre o arquivo no Notepad.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! dir</code><button class="copy-icon-btn" data-code="! dir" title="Copiar comando" aria-label="Copiar comando ! dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Lista os arquivos da pasta.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! start manual.html</code><button class="copy-icon-btn" data-code="! start manual.html" title="Copiar comando" aria-label="Copiar comando ! start manual.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Abre o <code class="inline">manual.html</code> no navegador padrão, direto do disco.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! gh repo create SaBurle/NomeDoRepo --private</code><button class="copy-icon-btn" data-code="! gh repo create SaBurle/NomeDoRepo --private" title="Copiar comando" aria-label="Copiar comando ! gh repo create SaBurle/NomeDoRepo --private"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Cria um repositório novo e privado no GitHub.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git</code><button class="copy-icon-btn" data-code="! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git" title="Copiar comando" aria-label="Copiar comando ! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Aponta o projeto para outro repositório do GitHub.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">! git remote -v</code><button class="copy-icon-btn" data-code="! git remote -v" title="Copiar comando" aria-label="Copiar comando ! git remote -v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Mostra para qual repositório o projeto está apontando.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">@prompt.md siga as instruções deste arquivo</code><button class="copy-icon-btn" data-code="@prompt.md siga as instruções deste arquivo" title="Copiar comando" aria-label="Copiar comando @prompt.md siga as instruções deste arquivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Executa o prompt salvo no arquivo.</td>
-        </tr>
-        <tr>
-          <td><code class="cmd-dark">@CLAUDE.md</code><button class="copy-icon-btn" data-code="@CLAUDE.md" title="Copiar comando" aria-label="Copiar comando @CLAUDE.md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
-          <td>Faz ele reler as regras do projeto.</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><em>Novos símbolos entram no fim da primeira tabela, e seus exemplos entram no fim da segunda, na mesma ordem.</em></p>
-
-    <p><strong>Observação sobre a branch:</strong> o nome da branch pode ser <code class="inline">main</code> ou <code class="inline">master</code>, dependendo do repositório. Para conferir, rode <code class="inline">git branch</code> (a branch atual aparece com <code class="inline">*</code>). Depois do primeiro envio com <code class="inline">-u</code>, basta <code class="inline">! git push</code>, que funciona em qualquer branch.</p>
+    <ul>
+      <li><code class="inline">! dir</code>: lista os arquivos da pasta.</li>
+      <li><code class="inline">! notepad prompt.md</code>: abre o arquivo no Notepad.</li>
+      <li><code class="inline">! start manual.html</code>: abre o manual no navegador.</li>
+      <li><code class="inline">@prompt.md siga as instruções deste arquivo</code>: executa o prompt do arquivo.</li>
+      <li><code class="inline">@CLAUDE.md</code>: relê as regras do projeto.</li>
+      <li>Os comandos de Git estão na 3.4. Dentro do Claude Code, coloque <code class="inline">!</code> na frente.</li>
+    </ul>
+    <p><em>Novos símbolos entram no fim da primeira tabela, e seus exemplos entram no fim da lista de Exemplos, na mesma ordem.</em></p>
 
     <div class="warn"><strong>⚠️ Aviso:</strong> com <code class="inline">!</code>, nunca rodar comandos que exijam digitar senha. Esses vão numa janela separada do PowerShell.</div>
     </section>
@@ -1195,6 +1134,57 @@
     <ul>
       <li>Repositório dentro de repositório: rodar <code class="inline">git init</code> numa pasta que já está dentro de outro repo cria um repo aninhado e confunde os commits. Antes de criar, confira com <code class="inline">git status</code>.</li>
       <li>Commit no lugar errado: olhe o <code class="inline">git remote -v</code> antes de dar push.</li>
+    </ul>
+    </section>
+    <section id="git-comandos-envio">
+    <h3>3.4 Comandos de envio</h3>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="cmd-dark">git push</code><button class="copy-icon-btn" data-code="git push" title="Copiar comando" aria-label="Copiar comando git push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Envia o código ao GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git push -u origin main</code><button class="copy-icon-btn" data-code="git push -u origin main" title="Copiar comando" aria-label="Copiar comando git push -u origin main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Primeiro envio de uma branch (<code class="inline">-u</code> guarda o caminho).</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">gh repo create SaBurle/NomeDoRepo --private</code><button class="copy-icon-btn" data-code="gh repo create SaBurle/NomeDoRepo --private" title="Copiar comando" aria-label="Copiar comando gh repo create SaBurle/NomeDoRepo --private"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Cria um repositório privado no GitHub.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git remote set-url origin URL</code><button class="copy-icon-btn" data-code="git remote set-url origin URL" title="Copiar comando" aria-label="Copiar comando git remote set-url origin URL"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Troca o endereço do repositório.</td>
+        </tr>
+        <tr>
+          <td><code class="cmd-dark">git remote -v</code><button class="copy-icon-btn" data-code="git remote -v" title="Copiar comando" aria-label="Copiar comando git remote -v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></td>
+          <td>Mostra o endereço do repositório.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Dentro do Claude Code, coloque <code class="inline">!</code> na frente do comando para rodá-lo direto no terminal (ver 2.5).</p>
+
+    <p><strong>Explicações</strong></p>
+    <ul>
+      <li><code class="inline">git push</code>: envia ao GitHub os commits da branch em que você está.</li>
+      <li><code class="inline">git push -u origin main</code>:
+        <ul>
+          <li><code class="inline">origin</code>: apelido do endereço do seu repositório no GitHub.</li>
+          <li><code class="inline">main</code>: a branch enviada. Troque pelo nome da sua (ex.: <code class="inline">b1</code>, <code class="inline">master</code>).</li>
+          <li><code class="inline">-u</code>: guarda o caminho. Só na primeira vez de cada branch, depois basta <code class="inline">git push</code>.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><strong>Exemplos práticos</strong></p>
+    <ul>
+      <li>Primeira vez da branch <code class="inline">b1</code>: <code class="inline">git push -u origin b1</code>.</li>
+      <li>Depois, estando na <code class="inline">b1</code>: <code class="inline">git push</code>.</li>
+      <li>Esqueceu o <code class="inline">-u</code>: o Git dá erro e mostra o comando certo.</li>
+      <li>O nome da branch pode ser <code class="inline">main</code> ou <code class="inline">master</code>, e <code class="inline">git branch</code> mostra a atual.</li>
     </ul>
     </section>
   </section>
@@ -1466,6 +1456,7 @@ claude</code></pre><button class="copy-btn" data-code="mkdir C:\Users\Samara\Cla
         <li role="none"><a href="#git-checklist" role="menuitem" class="sub-link">3.1 Checklist de fim de sessão</a></li>
         <li role="none"><a href="#git-conectar-repo" role="menuitem" class="sub-link">3.2 Conectar ao GitHub</a></li>
         <li role="none"><a href="#git-onde-estou" role="menuitem" class="sub-link">3.3 Onde estou?</a></li>
+        <li role="none"><a href="#git-comandos-envio" role="menuitem" class="sub-link">3.4 Comandos de envio</a></li>
       </ul>
     </li>
     <li role="none" class="nav-group">
