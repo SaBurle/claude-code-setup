@@ -409,6 +409,27 @@
     width: 85%;
   }
 
+  /* Seção 2.5 Símbolos, tabela Exemplos: colunas 56/44 (URL do git remote set-url em 2 linhas, botão de copiar ao lado) */
+  #tabela-exemplos th:nth-child(1),
+  #tabela-exemplos td:nth-child(1) {
+    width: 56%;
+  }
+  #tabela-exemplos th:nth-child(2),
+  #tabela-exemplos td:nth-child(2) {
+    width: 44%;
+  }
+  /* Abaixo de 860px (menu lateral sai da lateral), volta a 40/60 */
+  @media (max-width: 860px) {
+    #tabela-exemplos th:nth-child(1),
+    #tabela-exemplos td:nth-child(1) {
+      width: 40%;
+    }
+    #tabela-exemplos th:nth-child(2),
+    #tabela-exemplos td:nth-child(2) {
+      width: 60%;
+    }
+  }
+
   /* Seção 3.3 Onde estou?: colunas 40/60 (comandos curtos não quebram no meio em tela estreita) */
   #tabela-3-3-onde-estou th:nth-child(1),
   #tabela-3-3-onde-estou td:nth-child(1) {

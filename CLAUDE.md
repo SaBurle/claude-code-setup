@@ -16,3 +16,7 @@ When creating a new "Comando | O que faz" table (or any table whose first column
 8. Never rename or change a named table unless I ask.
 9. The copy button stays next to the command, never alone on a separate line.
 10. After creating a table, check it visually (including a narrow screen) before asking for approval.
+
+## Named exceptions
+
+- `tabela-exemplos` (2.5 Símbolos, Exemplos): columns 56/44 on wide screens, and 40/60 at 860px or less (the same breakpoint where the sidebar leaves the side). On wide screens, the long URL command (`! git remote set-url origin https://github.com/SaBurle/NomeDoRepo.git`) needs 2 lines with the copy button beside it.
