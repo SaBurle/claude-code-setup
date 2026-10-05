@@ -25,6 +25,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    5.1 Plus Addressing
 6. Glossário Técnico
    6.1 AWS/Cloud
+   6.2 Extensões de arquivo
 7. Meus Caminhos
 8. Resumo rápido (cola de bolso)
 
@@ -360,6 +361,23 @@ Use este mesmo truque manualmente (`seuemail+teste2@gmail.com`, `seuemail+bugX@g
 | `AWS Storage Gateway` | Armazenamento híbrido — conecta ambiente on-premises à nuvem. |
 | `Amazon VPC` | Rede virtual isolada — organiza e isola tráfego de rede, não orquestra nada. |
 | `AWS IAM` | Gerenciamento de identidade e permissões de acesso. |
+
+### 6.2 Extensões de arquivo
+
+A extensão é o final do nome do arquivo (depois do ponto) e indica que tipo de conteúdo ele tem.
+
+| Extensão | O que é |
+|---|---|
+| `.md` | Markdown: texto simples com formatação leve. Usado em documentação, como MANUAL-COMANDOS.md e prompt.md. |
+| `.html` | Página web. É o formato do manual.html, aberto no navegador. |
+| `.css` | Estilo da página: cores, fontes e larguras. No manual.html, o CSS fica dentro do próprio arquivo. |
+| `.js` | Código JavaScript: dá comportamento à página (ex.: botões de copiar e menus). |
+| `.py` | Código Python. Um arquivo .py guarda instruções para o computador executar (ex.: um logging.py de apoio, que registra o que o programa faz). |
+| `.json` | Dados organizados em texto, no formato chave e valor. Usado em configurações e na troca de informações entre sistemas. |
+| `.txt` | Texto simples, sem formatação. Abre no Notepad. |
+| `.zip` | Arquivo compactado: junta vários arquivos e pastas num só, menor (ver 1.3 Compactar pasta em .zip). |
+
+*Novas extensões entram no fim da tabela.*
 
 ---
 
