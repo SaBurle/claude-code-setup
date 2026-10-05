@@ -17,7 +17,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    2.5 Símbolos
 3. Git e GitHub
    3.1 Checklist de fim de sessão
-   3.2 Conectar um projeto a um repositório novo no GitHub
+   3.2 Conectar ao GitHub
    3.3 Onde estou? (localizar-se entre repositórios)
 4. Notepad
    4.1 Atalhos e Comandos
@@ -254,7 +254,7 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 | `git push` | Envia para o repositório remoto no GitHub. |
 | `Everything up-to-date` | Confirme o retorno: essa mensagem ou um push bem-sucedido. |
 
-### 3.2 Conectar um projeto a um repositório novo no GitHub
+### 3.2 Conectar ao GitHub
 
 Depois de criar um repositório vazio no GitHub (sem README, sem .gitignore, sem licença), a página mostra estes comandos. Troque `NomeDoRepo` pelo nome do seu repositório. Se o repositório já tiver README ou outros arquivos criados pelo GitHub, o primeiro push será rejeitado.
 
