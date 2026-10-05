@@ -17,6 +17,8 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
    2.5 Símbolos
 3. Git e GitHub
    3.1 Checklist de fim de sessão
+   3.2 Conectar um projeto a um repositório novo no GitHub
+   3.3 Onde estou? (localizar-se entre repositórios)
 4. Notepad
    4.1 Atalhos e Comandos
 5. E-mail
@@ -251,6 +253,51 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 | `git commit -m "mensagem"` | Registra o commit. |
 | `git push` | Envia para o repositório remoto no GitHub. |
 | `Everything up-to-date` | Confirme o retorno: essa mensagem ou um push bem-sucedido. |
+
+### 3.2 Conectar um projeto a um repositório novo no GitHub
+
+Depois de criar um repositório vazio no GitHub (sem README, sem .gitignore, sem licença), a página mostra estes comandos. Troque `NomeDoRepo` pelo nome do seu repositório. Se o repositório já tiver README ou outros arquivos criados pelo GitHub, o primeiro push será rejeitado.
+
+#### Pasta nova, sem Git ainda
+
+| Comando | O que faz |
+|---|---|
+| `Set-Content README.md "# NomeDoRepo"` | Cria o README.md com o título do projeto. |
+| `git init` | Inicia o repositório Git na pasta. |
+| `git add README.md` | Adiciona o arquivo. |
+| `git commit -m "first commit"` | Faz o primeiro commit. |
+| `git branch -M main` | Renomeia a branch atual para main. |
+| `git remote add origin https://github.com/SaBurle/NomeDoRepo.git` | Liga a pasta ao repositório do GitHub. |
+| `git push -u origin main` | Envia o código ao GitHub e liga a branch local à remota. |
+
+#### Repositório que já existe na pasta
+
+| Comando | O que faz |
+|---|---|
+| `git remote add origin https://github.com/SaBurle/NomeDoRepo.git` | Liga a pasta ao repositório do GitHub. |
+| `git branch -M main` | Renomeia a branch atual para main. |
+| `git push -u origin main` | Envia o código ao GitHub e liga a branch local à remota. |
+
+- Para conferir se a ligação deu certo: `git remote -v`.
+- Se o repositório já foi ligado antes e você quer trocar o endereço, use `git remote set-url origin URL`, em vez de `git remote add`.
+- Por que `Set-Content` e não `echo`: no PowerShell 5.1, o `echo` grava em UTF-16 e o README fica ilegível no GitHub.
+- Se a sua branch for `master` e você prefere manter, pule o `git branch -M main` e use `git push -u origin master`.
+
+### 3.3 Onde estou? (localizar-se entre repositórios)
+
+Ao alternar entre repositórios, estes quatro comandos mostram onde você está antes de commitar ou dar push.
+
+| Comando | O que faz |
+|---|---|
+| `pwd` | Mostra em qual pasta você está. |
+| `git remote -v` | Mostra a qual repositório do GitHub essa pasta está ligada. |
+| `git status` | Mostra o que mudou e o que ainda não foi commitado. |
+| `git branch` | Mostra em qual branch você está (a atual aparece com `*`). |
+
+#### Cuidados ao alternar entre repositórios
+
+- Repositório dentro de repositório: rodar `git init` numa pasta que já está dentro de outro repo cria um repo aninhado e confunde os commits. Antes de criar, confira com `git status`.
+- Commit no lugar errado: olhe o `git remote -v` antes de dar push.
 
 ---
 
