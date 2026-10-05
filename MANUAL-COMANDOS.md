@@ -256,6 +256,12 @@ No terminal do Windows, colar textos longos direto no Claude Code pode falhar ou
 | `git push` | Envia para o repositório remoto no GitHub. |
 | `Everything up-to-date` | Confirme o retorno: essa mensagem ou um push bem-sucedido. |
 
+**Como confirmar que o push deu certo**
+
+- `! git status` é o comando que você digita.
+- `master -> master` (ou `main -> main`) é uma linha que o Git mostra na tela depois do push. É só para olhar, não para digitar.
+- O sinal mais confiável é o retorno do `git status`: `up to date with 'origin/master'` e `working tree clean`. Ele aparece mesmo quando o resumo do Claude Code esconde a saída do push.
+
 ### 3.2 Conectar ao GitHub
 
 Depois de criar um repositório vazio no GitHub (sem README, sem .gitignore, sem licença), a página mostra estes comandos. Troque `NomeDoRepo` pelo nome do seu repositório. Se o repositório já tiver README ou outros arquivos criados pelo GitHub, o primeiro push será rejeitado.

@@ -1088,6 +1088,12 @@
         </tr>
       </tbody>
     </table>
+    <p><strong>Como confirmar que o push deu certo</strong></p>
+    <ul>
+      <li><code class="inline">! git status</code> é o comando que você digita.</li>
+      <li><code class="inline">master -&gt; master</code> (ou <code class="inline">main -&gt; main</code>) é uma linha que o Git mostra na tela depois do push. É só para olhar, não para digitar.</li>
+      <li>O sinal mais confiável é o retorno do <code class="inline">git status</code>: <code class="inline">up to date with 'origin/master'</code> e <code class="inline">working tree clean</code>. Ele aparece mesmo quando o resumo do Claude Code esconde a saída do push.</li>
+    </ul>
     </section>
 
     <section id="git-conectar-repo">
