@@ -26,6 +26,7 @@ Guia de referência rápida para quem está começando a usar o terminal (PowerS
 6. Glossário Técnico
    6.1 AWS/Cloud
    6.2 Extensões de arquivo
+   6.3 Testar em tela de celular
 7. Meus Caminhos
 8. Resumo rápido (cola de bolso)
 
@@ -378,6 +379,23 @@ A extensão é o final do nome do arquivo (depois do ponto) e indica que tipo de
 | `.zip` | Arquivo compactado: junta vários arquivos e pastas num só, menor (ver 1.3 Compactar pasta em .zip). |
 
 *Novas extensões entram no fim da tabela.*
+
+### 6.3 Testar em tela de celular
+
+Para ver como uma página fica no celular, use o modo celular das ferramentas do navegador (Chrome ou Edge).
+
+| Atalho | O que faz |
+|---|---|
+| `! start manual.html` | Abre o `manual.html` no navegador padrão, direto do disco. |
+| `F12` | Abre e fecha as ferramentas do desenvolvedor do navegador. |
+| `Ctrl+Shift+M` | Com as ferramentas abertas, liga e desliga o modo celular. |
+| `Ctrl+F5` | Recarrega a página sem cache, para ver a versão mais recente. |
+
+1. Abra a página e aperte `F12`.
+2. Aperte `Ctrl+Shift+M` para ligar o modo celular.
+3. No topo da página, escolha uma largura de 390 ou 500 px.
+4. Confira se nada fica cortado e se nenhum comando quebra no meio.
+5. Aperte `F12` de novo para voltar ao normal.
 
 ---
 
